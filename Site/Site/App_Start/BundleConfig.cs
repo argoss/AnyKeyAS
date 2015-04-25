@@ -1,5 +1,5 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
+using Site.Models.Extensions;
 
 namespace Site
 {
@@ -26,6 +26,18 @@ namespace Site
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            new ScriptBundle("~/scriptbundles/bootstrap").
+                Include("~/Scripts/bootstrap.js").
+                Include("~/Scripts/bootstrap-datepicker.js").
+                AddTo(BundleTable.Bundles);
+
+            new StyleBundle("~/stylebundles/bootstrap").
+                Include("~/Content/bootstrap.css").
+                Include("~/Content/bootstrap-theme.css").
+                Include("~/Content/bootstrap-datepicker3.css").
+                Include("~/Content/bootstrap-notify.css").
+                AddTo(bundles);
         }
     }
 }
