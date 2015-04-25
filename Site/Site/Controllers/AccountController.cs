@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -9,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Site.Models;
+using Servicing.Account;
 
 namespace Site.Controllers
 {
@@ -18,8 +16,11 @@ namespace Site.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+        private IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
         {
+            _accountService = accountService;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -73,22 +74,21 @@ namespace Site.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            if (await _accountService.ValidateUser(model.UserName, model.Password))
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                if (await _accountService.SignInAsync(model.UserName, model.RememberMe, Request.RequestContext))
+                {
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    return RedirectToAction("Index", "Paging", new { area = "intranet" });
+                }
             }
+
+            ModelState.AddModelError("", "Invalid username or password.");
+
+            return View(model);
         }
 
         //
