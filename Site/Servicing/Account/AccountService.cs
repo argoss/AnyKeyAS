@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,55 +14,123 @@ namespace Servicing.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
+        public AccountService()
+        {
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new AnykeyDbCntext()))
+            {
+                PasswordHasher = new SqlPasswordHasher()
+            };
+
+            var provider = new Microsoft.Owin.Security.DataProtection.DpapiDataProtectionProvider("Sample");
+            _userManager.UserTokenProvider = new Microsoft.AspNet.Identity.Owin.DataProtectorTokenProvider<ApplicationUser>(provider.Create("EmailConfirmation"));
+        }
+
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            _userManager.Dispose();
         }
 
-        public Task<bool> ValidateUser(string userName, string password)
+        public async Task<bool> ValidateUser(string userName, string password)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindAsync(userName, password).ConfigureAwait(false);
+            return user != null;
         }
 
-        public Task<AccountServiceResult> CreateUser(string userName, string password, string email)
+        public async Task<AccountServiceResult> CreateUser(string userName, string password, string email)
         {
-            throw new System.NotImplementedException();
+            var user = new ApplicationUser() { UserName = userName, Email = email };
+            return GetResult(await _userManager.CreateAsync(user, password).ConfigureAwait(false));
         }
 
-        public Task<AccountServiceResult> ModifyUser(UserEditModel model)
+        public async Task<AccountServiceResult> ModifyUser(UserEditModel model)
         {
-            throw new System.NotImplementedException();
+            try
+			{
+				var user = await _userManager.FindByNameAsync(model.UserName).ConfigureAwait(false);
+				user.FirstName = model.FirstName;
+				user.LastName = model.LastName;
+			    user.Patronymic = model.Patronymic;
+			    user.Position = model.Position;
+				user.Email = model.Email;
+				user.PhoneNumber = model.Phone;
+				await _userManager.UpdateAsync(user);
+                return new AccountServiceResult {IsSuccess = true};
+            }
+            catch (Exception exception)
+            {
+                return new AccountServiceResult { IsSuccess = false, Errors = new[] {exception.ToString()}};                
+            }
         }
 
-        public Task<bool> ChangePassword(string userName, string oldPassword, string newPassword)
+        public async Task<bool> ChangePassword(string userName, string oldPassword, string newPassword)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user.Id, oldPassword, newPassword).ConfigureAwait(false);
+
+            return result.Succeeded;
         }
 
-        public Task<AccountServiceResult> ResetPassword(string userName, string token, string newPassword)
+        public async Task<AccountServiceResult> ResetPassword(string userName, string token, string newPassword)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            if (user == null) { return new AccountServiceResult
+            {
+                IsSuccess = false,
+                Errors = new[] { "Unknown user name" }
+            }; }
+
+            return GetResult(await _userManager.ResetPasswordAsync(user.Id, token, newPassword).ConfigureAwait(false));
         }
 
-        public Task<bool> DeleteUser(string userName)
+        public async Task<bool> DeleteUser(string userName)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            if (user == null)
+            {
+                return false;
+            }
+            var result = await _userManager.DeleteAsync(user).ConfigureAwait(false);
+            return result.Succeeded;
         }
 
-        public Task<AccountServiceResult> ValidatePassword(string password)
+        public async Task<AccountServiceResult> ValidatePassword(string password)
         {
-            throw new System.NotImplementedException();
+            return GetResult(await _userManager.PasswordValidator.ValidateAsync(password).ConfigureAwait(false));
         }
 
-        public Task<AccountServiceResult> AddToRole(string userName, string roleName)
+        public async Task<AccountServiceResult> AddToRole(string userName, string roleName)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            if (user == null) { return new AccountServiceResult
+            {
+                IsSuccess = false,
+                Errors = new[] { "Unknown user name" }
+            }; }
+
+			return GetResult(await _userManager.AddToRoleAsync(user.Id, roleName).ConfigureAwait(false));
         }
 
-        public Task<AccountServiceResult> RemoveFromRole(string userName, string roleName)
+        public async Task<AccountServiceResult> RemoveFromRole(string userName, string roleName)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            if (user == null) { return new AccountServiceResult
+            {
+                IsSuccess = false,
+                Errors = new[] { "Unknown user name" }
+            }; }
+
+            return GetResult(await _userManager.RemoveFromRoleAsync(user.Id, roleName).ConfigureAwait(false));
         }
 
         public async Task<bool> SignInAsync(string userName, bool isPersistent, RequestContext requestContext)
@@ -87,27 +152,69 @@ namespace Servicing.Account
 
         public void SignOut(RequestContext requestContext)
         {
-            throw new System.NotImplementedException();
+            var authenticationManager = requestContext.HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
         }
 
-        public Task<string> GeneratePasswordResetTokenAsync(string userName)
+        public async Task<string> GeneratePasswordResetTokenAsync(string userName)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            return await _userManager.GeneratePasswordResetTokenAsync(user.Id).ConfigureAwait(false);
         }
 
-        public Task SendEmailAsync(string userName, string subject, string body)
+        public async Task SendEmailAsync(string userName, string subject, string body)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            await _userManager.SendEmailAsync(user.Id, subject, body).ConfigureAwait(false);
         }
 
-        public Task<UserEditModel> GetUser(string userName)
+        public async Task<UserEditModel> GetUser(string userName)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+
+            if (user == null) return null;
+
+            return new UserEditModel
+            {
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Patronymic = user.Patronymic,
+                Position = user.Position,
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
+            };
         }
 
-        public Task<UserEditModel> GetUserById(string userId)
+        public async Task<UserEditModel> GetUserById(string userId)
         {
-            throw new System.NotImplementedException();
+            var user = await _userManager.FindByIdAsync(userId).ConfigureAwait(false);
+
+			if (user == null) return null;
+
+			return new UserEditModel
+			{
+				UserName = user.UserName,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+                Patronymic = user.Patronymic,
+                Position = user.Position,
+				Email = user.Email,
+				Phone = user.PhoneNumber,
+				Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
+			};
+        }
+
+        private AccountServiceResult GetResult(IdentityResult identityResult)
+        {
+            return new AccountServiceResult
+            {
+                IsSuccess = identityResult.Succeeded,
+                Errors = identityResult.Errors
+            };
         }
     }
 }
