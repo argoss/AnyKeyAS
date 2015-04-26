@@ -102,22 +102,18 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            var result = await _accountService.ResetPassword(model.UserName, model.Code, model.Password);
+            if (result.IsSuccess)
             {
-                return View(model);
+                await _accountService.SignInAsync(model.UserName, false, Request.RequestContext);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            else
             {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
             return View();
         }
 
