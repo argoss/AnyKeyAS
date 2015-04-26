@@ -117,6 +117,9 @@
     <Compile Include="Account\AccountService.cs" />
     <Compile Include="Account\AccountServiceResult.cs" />
     <Compile Include="Account\IAccountService.cs" />
+    <Compile Include="Roles\IRoleService.cs" />
+    <Compile Include="Roles\RoleModel.cs" />
+    <Compile Include="Roles\RoleService.cs" />
     <Compile Include="Account\SqlPasswordHasher.cs" />
     <Compile Include="Account\UserEditModel.cs" />
     <Compile Include="Data\AnykeyDbCntext.cs.cs" />
