@@ -117,6 +117,14 @@
     <Compile Include="Account\AccountService.cs" />
     <Compile Include="Account\AccountServiceResult.cs" />
     <Compile Include="Account\IAccountService.cs" />
+    <Compile Include="Data\Client.cs" />
+    <Compile Include="Data\Equipment.cs" />
+    <Compile Include="Data\Request.cs" />
+    <Compile Include="Migrations\201504281727096_1.cs" />
+    <Compile Include="Migrations\201504281727096_1.Designer.cs">
+      <DependentUpon>201504281727096_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Roles\IRoleService.cs" />
     <Compile Include="Roles\RoleModel.cs" />
     <Compile Include="Roles\RoleService.cs" />
@@ -129,6 +137,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504281727096_1.resx">
+      <DependentUpon>201504281727096_1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

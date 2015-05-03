@@ -10,8 +10,11 @@ namespace Servicing.Data
         {
         }
 
+        public virtual DbSet<Client> Clients { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

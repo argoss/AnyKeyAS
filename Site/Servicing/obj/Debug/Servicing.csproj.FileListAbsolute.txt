@@ -44,3 +44,5 @@ c:\Repository\AnyKeyAS\AnyKeyAS\Site\Servicing\bin\Debug\System.Web.WebPages.Dep
 c:\Repository\AnyKeyAS\AnyKeyAS\Site\Servicing\bin\Debug\System.Web.WebPages.Razor.xml
 c:\Repository\AnyKeyAS\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.dll
 c:\Repository\AnyKeyAS\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.pdb
+c:\Repository\AnyKeyAS\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.Migrations._1.resources
+c:\Repository\AnyKeyAS\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.csproj.GenerateResource.Cache

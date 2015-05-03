@@ -140,3 +140,5 @@ c:\Repository\AnyKeyAS\AnyKeyAS\Site\Site\obj\Debug\Site.dll
 c:\Repository\AnyKeyAS\AnyKeyAS\Site\Site\obj\Debug\Site.pdb
 c:\Repository\AnyKeyAS\AnyKeyAS\Site\Site\bin\EntityFramework.Extended.dll
 c:\Repository\AnyKeyAS\AnyKeyAS\Site\Site\bin\EntityFramework.Extended.xml
+c:\Repository\AnyKeyAS\AnyKeyAS\Site\Site\bin\Servicing.dll
+c:\Repository\AnyKeyAS\AnyKeyAS\Site\Site\bin\Servicing.pdb
