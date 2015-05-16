@@ -198,14 +198,17 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MainMenu\MainMenuController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Service\ServiceApiController.cs" />
     <Compile Include="Controllers\Service\ServiceController.cs" />
+    <Compile Include="Controllers\User\UserApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Extensions\BundleExtensions.cs" />
+    <Compile Include="Models\MainMenu\MainMenuApiConfig.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Service\ServiceViewModel.cs" />
     <Compile Include="PresentationLogic\Container\BusinessLogicInstaller.cs" />
@@ -382,7 +385,7 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Service\Index.cshtml" />
+    <Content Include="Views\MainMenu\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

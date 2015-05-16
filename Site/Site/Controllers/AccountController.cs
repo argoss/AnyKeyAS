@@ -1,12 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Site.Models;
 using Servicing.Account;
+using Site.Models;
+using Site.Models.MainMenu;
 
 namespace Site.Controllers
 {
@@ -53,7 +55,7 @@ namespace Site.Controllers
             else
                 ModelState.AddModelError("", "Invalid username or password.");
 
-            return View(model);
+            return RedirectToAction("Index", "MainMenu");
         }
 
         //
@@ -133,29 +135,6 @@ namespace Site.Controllers
         {
             _accountService.SignOut(Request.RequestContext);
             return RedirectToAction("Index", "Home");
-        }
-
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                
-            }
-
-            return View(model);
         }
 
         protected override void Dispose(bool disposing)

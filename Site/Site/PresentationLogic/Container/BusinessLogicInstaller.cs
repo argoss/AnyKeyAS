@@ -14,7 +14,7 @@ namespace Site.PresentationLogic.Container
         {
             container.Register(Component.For<DbContext>().ImplementedBy<AnykeyDbCntext>());
             container.Register(Component.For<IRoleService>().ImplementedBy<RoleService>());
-            container.Register(Component.For<IAccountService>().ImplementedBy<AccountService>());
+            container.Register(Component.For<IAccountService>().ImplementedBy<AccountService>().LifestyleTransient());
         }
     }
 }

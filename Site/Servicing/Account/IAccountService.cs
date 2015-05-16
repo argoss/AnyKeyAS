@@ -9,7 +9,7 @@ namespace Servicing.Account
     {
         Task<bool> ValidateUser(string userName, string password);
 
-        Task<AccountServiceResult> CreateUser(string userName, string password, string email);
+        Task<AccountServiceResult> CreateUser(string userName, string password);
 
         Task<AccountServiceResult> ModifyUser(UserEditModel model);
         

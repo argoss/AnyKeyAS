@@ -33,13 +33,13 @@ namespace Servicing.Account
 
         public async Task<bool> ValidateUser(string userName, string password)
         {
-            var user = await _userManager.FindAsync(userName, password).ConfigureAwait(false);
+            var user = await _userManager.FindAsync(userName, password);
             return user != null;
         }
 
-        public async Task<AccountServiceResult> CreateUser(string userName, string password, string email)
+        public async Task<AccountServiceResult> CreateUser(string userName, string password)
         {
-            var user = new ApplicationUser() { UserName = userName, Email = email };
+            var user = new ApplicationUser() { UserName = userName };
             return GetResult(await _userManager.CreateAsync(user, password).ConfigureAwait(false));
         }
 
