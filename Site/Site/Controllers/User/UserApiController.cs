@@ -9,7 +9,7 @@ using Site.Models;
 namespace Site.Controllers.User
 {
     [Authorize(Roles = "admin")]
-    public class UserApiController: ApiController
+    public sealed class UserApiController : ApiController
     {
         private IAccountService _accountService;
 
@@ -66,5 +66,12 @@ namespace Site.Controllers.User
 
             return result.IsSuccess;
         }*/
+
+        [HttpGet]
+        public async Task<HttpResponseMessage> GetUsers()
+        {
+
+            return null;
+        }
     }
 }

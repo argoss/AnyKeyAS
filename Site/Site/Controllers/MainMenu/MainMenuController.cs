@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Site.Models.MainMenu;
 
 namespace Site.Controllers.MainMenu
 {
@@ -6,7 +7,14 @@ namespace Site.Controllers.MainMenu
     {
         public ActionResult Index()
         {
-            return View();
+            var url = new MainMenuApiConfig
+            {
+                ClientsUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "ClientApi"}),
+                RequestUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "RequestApi"}),
+                ServicingUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "ServicingApi"})
+            };
+
+            return View(url);
         }
     }
 }

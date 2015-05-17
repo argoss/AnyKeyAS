@@ -6,7 +6,7 @@ namespace Site.Controllers.Clients
     {
         public ActionResult Clients()
         {
-            
+            return null;
         }
     }
 }

@@ -120,6 +120,7 @@
     <Compile Include="Data\Client.cs" />
     <Compile Include="Data\Equipment.cs" />
     <Compile Include="Data\Request.cs" />
+    <Compile Include="Extensions\RelfectionExtensions.cs" />
     <Compile Include="Migrations\201504281727096_1.cs" />
     <Compile Include="Migrations\201504281727096_1.Designer.cs">
       <DependentUpon>201504281727096_1.cs</DependentUpon>

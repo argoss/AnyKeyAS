@@ -19,15 +19,19 @@
                 <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Обслуживание<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-wrench"></span></a></li>
-                        <li><a onclick="javascript:menuItemClick('Клиенты', @Html.ActionLink("GetClients", "ClientApi"));return false;">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a></li>
+                        <li onclick="javascript:menuItemClick('Клиенты', '@Model.ClientsUrl');return false;">
+                            <a href="#">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a>
+                        </li>
                         <li><a href="#">Заявки<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-pushpin"></span></a></li>
-                        <li><a href="#">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-user"></span></a></li>
+                        <li onclick="javascript:menuItemClick('Пользователи', '@Url.Action("GetUsers", "UserApi")');return false;">
+                            <a href="#">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-user"></span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-    <div class="col-md-10 content">
+    <div class="col-md-10">
         <div class="panel panel-default">
             <div class="panel-heading" id="panel-heading">
 
@@ -41,7 +45,7 @@
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
 
     function menuItemClick(menuItemName, link) {
 

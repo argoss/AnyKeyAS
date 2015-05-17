@@ -7,7 +7,7 @@ namespace Site.Controllers.Clients
     public class ClientApiController: ApiController
     {
         [HttpGet]
-        public async Task<ClientListViewModel> GetClient()
+        public async Task<ClientListViewModel> GetClients()
         {
 
             return null;
