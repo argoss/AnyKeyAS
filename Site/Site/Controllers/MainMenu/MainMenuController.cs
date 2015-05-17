@@ -11,7 +11,8 @@ namespace Site.Controllers.MainMenu
             {
                 ClientsUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "ClientApi"}),
                 RequestUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "RequestApi"}),
-                ServicingUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "ServicingApi"})
+                ServicingUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "ServicingApi"}),
+                UserUrl = Url.HttpRouteUrl("DefaultApi", new { controller = "UserApi" })
             };
 
             return View(url);

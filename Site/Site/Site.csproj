@@ -203,6 +203,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainMenu\MainMenuController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Requests\RequestApiController.cs" />
+    <Compile Include="Controllers\Requests\RequestController.cs" />
     <Compile Include="Controllers\Service\ServiceApiController.cs" />
     <Compile Include="Controllers\Service\ServiceController.cs" />
     <Compile Include="Controllers\User\UserApiController.cs" />
@@ -214,7 +216,9 @@
     <Compile Include="Models\Extensions\BundleExtensions.cs" />
     <Compile Include="Models\MainMenu\MainMenuApiConfig.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Requests\RequestListViewModel.cs" />
     <Compile Include="Models\Service\ServiceViewModel.cs" />
+    <Compile Include="Models\Users\UserListViewModel.cs" />
     <Compile Include="PresentationLogic\Container\BusinessLogicInstaller.cs" />
     <Compile Include="PresentationLogic\Container\ControllersInstaller.cs" />
     <Compile Include="PresentationLogic\Container\locContainer.cs" />

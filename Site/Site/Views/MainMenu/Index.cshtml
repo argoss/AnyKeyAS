@@ -18,12 +18,16 @@
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Обслуживание<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-wrench"></span></a></li>
+                        <li class="active" onclick="javascript:menuItemClick('Обслуживание', '@Model.ServicingUrl');return false;">
+                            <a href="#">Обслуживание<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-wrench"></span></a>
+                        </li>
                         <li onclick="javascript:menuItemClick('Клиенты', '@Model.ClientsUrl');return false;">
                             <a href="#">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a>
                         </li>
-                        <li><a href="#">Заявки<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-pushpin"></span></a></li>
-                        <li onclick="javascript:menuItemClick('Пользователи', '@Url.Action("GetUsers", "UserApi")');return false;">
+                        <li onclick="javascript:menuItemClick('Заявки', '@Model.RequestUrl');return false;">
+                            <a href="#">Заявки<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-pushpin"></span></a>
+                        </li>
+                        <li onclick="javascript:menuItemClick('Пользователи', '@Model.UserUrl');return false;">
                             <a href="#">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-user"></span></a>
                         </li>
                     </ul>
