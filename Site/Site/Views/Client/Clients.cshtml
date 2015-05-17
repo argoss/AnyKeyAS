@@ -1,0 +1,35 @@
+﻿
+@model Site.Models.Clients.ClientListViewModel
+           
+@{
+    ViewBag.Title = "Main menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-default" href="@Html.ActionLink("AddClient", "ClientApi")">Добавить нового клиента</button>
+    </div>
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Client Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var client in Model.List)
+                {
+                    <tr>
+                        <td>@client.Name</td>
+                        <td class="glyphicon glyphicon-pencil"></td>
+                        <td calss="glyphicon glyphicon-remove"></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
