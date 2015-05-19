@@ -15,10 +15,10 @@ namespace Site.Controllers.User
 
         public UserApiController(IAccountService accountService)
         {
-            _accountService = accountService;
+            _accountService = accountService ?? new AccountService();
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public async Task<HttpResponseMessage> Create(RegisterViewModel model)
         {
             if (model.Password != model.ConfirmPassword || !ModelState.IsValid)
@@ -68,10 +68,15 @@ namespace Site.Controllers.User
         }*/
 
         [HttpGet]
-        public async Task<HttpResponseMessage> GetUsers()
+        public async Task GetUsers(string name)
         {
+            await _accountService.GetUser(name);
+        }
 
-            return null;
+        [HttpDelete]
+        public async Task DeleteUser(string name)
+        {
+            await _accountService.DeleteUser(name);
         }
     }
 }
