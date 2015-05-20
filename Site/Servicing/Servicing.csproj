@@ -120,6 +120,7 @@
     <Compile Include="Clients\ClientModel.cs" />
     <Compile Include="Clients\ClientService.cs" />
     <Compile Include="Clients\IClientService.cs" />
+    <Compile Include="Clients\PaymentType.cs" />
     <Compile Include="Data\Client.cs" />
     <Compile Include="Data\Equipment.cs" />
     <Compile Include="Data\Request.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Requests\IRequestService.cs" />
     <Compile Include="Requests\RequestModel.cs" />
     <Compile Include="Requests\RequestService.cs" />
+    <Compile Include="Requests\RequestStatus.cs" />
     <Compile Include="Roles\IRoleService.cs" />
     <Compile Include="Roles\RoleModel.cs" />
     <Compile Include="Roles\RoleService.cs" />

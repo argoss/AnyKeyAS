@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Servicing.Data
@@ -21,6 +23,13 @@ namespace Servicing.Data
         public string Addres { get; set; }
 
         [Required]
-        public string Phone { get; set; }
+        public string OwnPhone { get; set; }
+
+        [Required]
+        public string WorkPhone { get; set; }
+
+        public virtual ICollection<Request> Requests { get; set; }
+
+        public virtual ICollection<Equipment> Equipment { get; set; }
     }
 }

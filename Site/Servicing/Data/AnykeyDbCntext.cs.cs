@@ -11,7 +11,8 @@ namespace Servicing.Data
         }
 
         public virtual DbSet<Client> Clients { get; set; }
-
+        public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Equipment> Equipment { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
