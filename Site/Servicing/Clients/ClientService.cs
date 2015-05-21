@@ -40,7 +40,8 @@ namespace Servicing.Clients
                 }
 
                 item.Name = model.Name;
-                item.Phone = model.Phone;
+                item.OwnPhone = model.OwnPhone;
+                item.WorkPhone = model.WorkPhone;
                 item.ShortName = model.ShortName;
                 item.Addres = model.Addres;
 

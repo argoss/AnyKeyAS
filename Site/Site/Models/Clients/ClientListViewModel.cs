@@ -1,4 +1,6 @@
-﻿namespace Site.Models.Clients
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Site.Models.Clients
 {
     public class ClientListViewModel
     {
@@ -14,8 +16,21 @@
     {
         public int Id { get; set; }
 
+        [Required]
+        [MaxLength(32)]
+        public string ShortName { get; set; }
+
+        [Required]
+        [MaxLength(128)]
         public string Name { get; set; }
 
+        [Required]
+        public string Addres { get; set; }
 
+        [Required]
+        public string OwnPhone { get; set; }
+
+        [Required]
+        public string WorkPhone { get; set; }
     }
 }

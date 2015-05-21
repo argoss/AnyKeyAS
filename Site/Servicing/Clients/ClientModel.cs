@@ -10,6 +10,8 @@
 
         public string Addres { get; set; }
 
-        public string Phone { get; set; }
+        public string OwnPhone { get; set; }
+
+        public string WorkPhone { get; set; }
     }
 }

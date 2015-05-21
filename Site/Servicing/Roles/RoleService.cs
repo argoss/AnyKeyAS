@@ -15,19 +15,19 @@ namespace Servicing.Roles
 
         private readonly RoleManager<IdentityRole> _manager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
 
-        public void Create(string name)
+        public async Task Create(string name)
         {
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name can't be null, empty or contain only whitespaces");
             if (_manager.RoleExists(name))
                 throw new ArgumentException("Role with the same name already exists");
 
-            var taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
-            TaskExtensions.Unwrap(taskFactory.StartNew<Task>(() => _manager.CreateAsync(new IdentityRole(name)))).GetAwaiter().GetResult();
-            //_manager.CreateAsync(new IdentityRole(name));
+            //var taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
+            //TaskExtensions.Unwrap(taskFactory.StartNew<Task>(() => _manager.CreateAsync(new IdentityRole(name)))).GetAwaiter().GetResult();
+            await _manager.CreateAsync(new IdentityRole(name));
         }
 
-        public void Delete(string roleName)
+        public async Task Delete(string roleName)
         {
             var roles = _manager.Roles.Where(x => x.Name == roleName).ToArray();
             using (var dc = new AnykeyDbCntext())
@@ -38,7 +38,7 @@ namespace Servicing.Roles
                         throw new InvalidOperationException(string.Format("Role '{0}' is not empty.", identityRole.Name));
                     _manager.Delete(identityRole);
                 }
-                dc.SaveChangesAsync().ConfigureAwait(false);
+                await dc.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 

@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Servicing.Roles
 {
     public interface IRoleService
     {
-        void Create(String name);
+        Task Create(String name);
 
-        void Delete(String roleName);
+        Task Delete(String roleName);
 
         bool IsAdmin(string[] roleIds);
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Servicing.Requests
 {
@@ -7,10 +6,8 @@ namespace Servicing.Requests
     {
         public int Id { get; set; }
 
-        [Required]
         public DateTime CreationDate { get; set; }
 
-        [Required]
         public DateTime ExecutionDate { get; set; }
 
         public RequestStatus Status { get; set; }
