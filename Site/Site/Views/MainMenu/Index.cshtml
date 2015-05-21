@@ -1,4 +1,5 @@
-﻿@model Site.Models.MainMenu.MainMenuApiConfig
+﻿@using Site.Models.Extensions
+@model Site.Models.MainMenu.MainMenuApiConfig
            
 @{
     ViewBag.Title = "Main menu";
@@ -21,7 +22,7 @@
                         <li class="active" onclick="javascript:menuItemClick('Обслуживание', '@Model.ServicingUrl');return false;">
                             <a href="#">Обслуживание<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-wrench"></span></a>
                         </li>
-                        <li onclick="javascript:menuItemClick('Клиенты', '@Model.ClientsUrl');return false;">
+                        <li onclick="javascript:menuItemClick('Клиенты', '@Url.Action("Clients", "Client")');return false;">
                             <a href="#">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a>
                         </li>
                         <li onclick="javascript:menuItemClick('Заявки', '@Model.RequestUrl');return false;">
@@ -48,6 +49,8 @@
         </div>
     </div>
 </div>
+
+@Html.NgPartial("Clients", "Clients.html")
 
 <script type="text/javascript">
 

@@ -70,8 +70,8 @@ namespace Servicing.Clients
             {
                 Id = model.Id,
                 Addres = model.Addres,
-                Name = model.Name,
-                Phone = model.Phone,
+                OwnPhone = model.OwnPhone,
+                WorkPhone = model.WorkPhone,
                 ShortName = model.ShortName
             };
         }
@@ -83,7 +83,8 @@ namespace Servicing.Clients
                 Id = item.Id,
                 Addres = item.Addres,
                 Name = item.Name,
-                Phone = item.Phone,
+                OwnPhone = item.OwnPhone,
+                WorkPhone = item.WorkPhone,
                 ShortName = item.ShortName
             };
         }

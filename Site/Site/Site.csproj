@@ -214,6 +214,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Clients\ClientListViewModel.cs" />
     <Compile Include="Models\Extensions\BundleExtensions.cs" />
+    <Compile Include="Models\Extensions\HtmlExtensions.cs" />
     <Compile Include="Models\MainMenu\MainMenuApiConfig.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Requests\RequestListViewModel.cs" />
