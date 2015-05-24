@@ -41,6 +41,14 @@ namespace Site
                 Include("~/Content/bootstrap-datepicker3.css").
                 Include("~/Content/bootstrap-notify.css").
                 AddTo(bundles);
+
+            new ScriptBundle("~/scriptbundles/angular").
+                Include("~/Scripts/angular.js").
+                Include("~/Scripts/angular-animate.js").
+                Include("~/Scripts/angular-resource.js").
+                Include("~/Scripts/angular-route.js").
+                Include("~/Scripts/angular-sanitize.min.js").
+                AddTo(bundles);
         }
     }
 }
