@@ -33,7 +33,7 @@ namespace Servicing.Account
 
         public async Task<bool> ValidateUser(string userName, string password)
         {
-            var user = await _userManager.FindAsync(userName, password);
+            var user = await _userManager.FindAsync(userName, password).ConfigureAwait(false);
             return user != null;
         }
 
@@ -54,7 +54,7 @@ namespace Servicing.Account
 			    user.Position = model.Position;
 				user.Email = model.Email;
 				user.PhoneNumber = model.Phone;
-				await _userManager.UpdateAsync(user);
+                await _userManager.UpdateAsync(user).ConfigureAwait(false);
                 return new AccountServiceResult {IsSuccess = true};
             }
             catch (Exception exception)

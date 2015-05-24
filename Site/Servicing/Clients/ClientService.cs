@@ -12,7 +12,7 @@ namespace Servicing.Clients
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var items = await dc.Clients.ToArrayAsync();
+                var items = await dc.Clients.ToArrayAsync().ConfigureAwait(false);
 
                 return items.Select(FromDb).ToArray();
             }
@@ -22,7 +22,7 @@ namespace Servicing.Clients
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var item = await dc.Clients.FirstOrDefaultAsync(x => x.Id == id);
+                var item = await dc.Clients.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
 
                 return FromDb(item);
             }
@@ -32,7 +32,7 @@ namespace Servicing.Clients
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var item = await dc.Clients.FirstOrDefaultAsync(x => x.Id == model.Id);
+                var item = await dc.Clients.FirstOrDefaultAsync(x => x.Id == model.Id).ConfigureAwait(false);
                 if (item == null)
                 {
                     item = new Client();
@@ -45,7 +45,7 @@ namespace Servicing.Clients
                 item.ShortName = model.ShortName;
                 item.Addres = model.Addres;
 
-                await dc.SaveChangesAsync();
+                await dc.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -53,14 +53,14 @@ namespace Servicing.Clients
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var item = await dc.Clients.FirstOrDefaultAsync(x => x.Id == id);
+                var item = await dc.Clients.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
                 if (item == null)
                 {
                     return;
                 }
 
                 dc.Clients.Remove(item);
-                await dc.SaveChangesAsync();
+                await dc.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 

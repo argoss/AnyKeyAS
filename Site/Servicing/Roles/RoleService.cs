@@ -24,7 +24,7 @@ namespace Servicing.Roles
 
             //var taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
             //TaskExtensions.Unwrap(taskFactory.StartNew<Task>(() => _manager.CreateAsync(new IdentityRole(name)))).GetAwaiter().GetResult();
-            await _manager.CreateAsync(new IdentityRole(name));
+            await _manager.CreateAsync(new IdentityRole(name)).ConfigureAwait(false);
         }
 
         public async Task Delete(string roleName)

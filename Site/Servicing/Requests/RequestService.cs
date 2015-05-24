@@ -12,7 +12,7 @@ namespace Servicing.Requests
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var items = await dc.Requests.ToArrayAsync();
+                var items = await dc.Requests.ToArrayAsync().ConfigureAwait(false);
 
                 return items.Select(FromDb).ToArray();
             }
@@ -22,7 +22,7 @@ namespace Servicing.Requests
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id == id);
+                var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
                 if (item == null)
                     throw new ArgumentException("Unknown request id");
 
@@ -34,7 +34,7 @@ namespace Servicing.Requests
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id == model.Id);
+                var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id == model.Id).ConfigureAwait(false);
                 if (item == null)
                 {
                     item = new Request();
@@ -44,7 +44,7 @@ namespace Servicing.Requests
                 item.CreationDate = model.CreationDate;
                 item.ExecutionDate = model.ExecutionDate;
 
-                await dc.SaveChangesAsync();
+                await dc.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 
@@ -52,14 +52,14 @@ namespace Servicing.Requests
         {
             using (var dc = new AnykeyDbCntext())
             {
-                var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id == id);
+                var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
                 if (item == null)
                 {
                     return;
                 }
 
                 dc.Requests.Remove(item);
-                await dc.SaveChangesAsync();
+                await dc.SaveChangesAsync().ConfigureAwait(false);
             }
         }
 

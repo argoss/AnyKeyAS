@@ -43,14 +43,12 @@
             </div>
             <div class="panel-body">
                 <div id="panel-body">
-                    
+                    @Html.Partial("Clients", "Clients.html")
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@Html.NgPartial("Clients", "Clients.html")
 
 <script type="text/javascript">
 
@@ -62,7 +60,7 @@
         $.ajax({
             url: link,
             type: 'GET',
-            dataType: 'json',
+            dataType: 'html',
             success: function (result) {
                 body.append(result);
             },

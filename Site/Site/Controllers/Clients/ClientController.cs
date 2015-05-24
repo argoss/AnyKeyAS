@@ -15,11 +15,11 @@ namespace Site.Controllers.Clients
             _clientService = clientService ?? new ClientService();
         }
 
-        public async Task<ActionResult> Clients()
+        public ActionResult Clients()
         {
-            var model = await _clientService.GetClients().ConfigureAwait(false);
+            var model = _clientService.GetClients().Result;
 
-            return View(new ClientListViewModel { List = Mapper.Map<ClientModel[], ClientViewModel[]>(model) });
+            return PartialView(new ClientListViewModel { List = Mapper.Map<ClientModel[], ClientViewModel[]>(model) });
         }
     }
 }
