@@ -33,6 +33,8 @@ namespace Servicing.Account
 
         Task SendEmailAsync(string userName, string subject, string body);
 
+        Task<UserEditModel[]> GetUsers();
+
         Task<UserEditModel> GetUser(string userName);
 
         Task<UserEditModel> GetUserById(string userId);

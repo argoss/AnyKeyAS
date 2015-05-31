@@ -4,6 +4,16 @@ namespace Site.Models.Users
 {
     public class UserListViewModel
     {
+        public UserListViewModel()
+        {
+            List = new UserViewModel[0];
+        }
+
+        public UserViewModel[] List { get; set; }
+    }
+
+    public class UserViewModel
+    {
         private string[] _roles = new string[0];
 
         [Required]

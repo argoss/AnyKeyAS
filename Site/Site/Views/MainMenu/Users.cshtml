@@ -1,0 +1,30 @@
+﻿@model Site.Models.MainMenu.MainMenuApiConfig
+
+<div class="container" ng-controller="UserCtrl" ng-cloak x-ng-init="controller.init(@Json.Encode(Model.UserUrl))">
+    <div class="row">
+        <button type="button" class="btn btn-default" href="@Url.Action("AddUser", "UserApi")">Добавить нового пользователя</button>
+    </div>
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in List">
+                    <td>item.UserName</td>
+                    <td class="glyphicon glyphicon-pencil"></td>
+                    <td calss="glyphicon glyphicon-remove"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/scriptbundles/documents")
+}

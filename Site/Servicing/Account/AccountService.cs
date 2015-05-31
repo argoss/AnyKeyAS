@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -170,6 +171,13 @@ namespace Servicing.Account
             await _userManager.SendEmailAsync(user.Id, subject, body).ConfigureAwait(false);
         }
 
+        public async Task<UserEditModel[]> GetUsers()
+        {
+            var users = await _userManager.Users.ToArrayAsync().ConfigureAwait(false);
+
+            return users.Select(FromDB).ToArray();
+        }
+
         public async Task<UserEditModel> GetUser(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
@@ -216,5 +224,28 @@ namespace Servicing.Account
                 Errors = identityResult.Errors
             };
         }
+
+        private UserEditModel FromDB(ApplicationUser item)
+        {
+            return new UserEditModel
+            {
+                FirstName = item.FirstName,
+                LastName = item.LastName,
+                Patronymic = item.Patronymic,
+                UserName = item.UserName,
+                Position = item.Position,
+                Email = item.Email,
+                Phone = item.Email,
+                Roles = (_userManager.GetRolesAsync(item.Id).Result).ToArray()
+            };
+        }
+
+        /*private ApplicationUser ToDB()
+        {
+            return new ApplicationUser
+            {
+
+            };
+        }*/
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Site.Automapper;
 
 namespace Site
 {
@@ -6,10 +7,10 @@ namespace Site
     {
         public static void StartUp()
         {
-            /*Mapper.Initialize(cfg =>
+            Mapper.Initialize(cfg =>
             {
-                cfg.AddProfile<ProductControllerProfile>();
-            });*/
+                cfg.AddProfile<ContentManagementProfile>();
+            });
         }
 
     }

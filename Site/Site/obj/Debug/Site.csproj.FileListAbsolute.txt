@@ -216,3 +216,5 @@ C:\Repository\AnyKeyAS\Site\Site\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Repository\AnyKeyAS\Site\Site\obj\Debug\Site.csprojResolveAssemblyReference.cache
 C:\Repository\AnyKeyAS\Site\Site\obj\Debug\Site.dll
 C:\Repository\AnyKeyAS\Site\Site\obj\Debug\Site.pdb
+C:\Repository\AnyKeyAS\Site\Site\bin\JetBrains.Annotations.dll
+C:\Repository\AnyKeyAS\Site\Site\bin\JetBrains.Annotations.xml

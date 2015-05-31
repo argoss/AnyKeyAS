@@ -1,4 +1,6 @@
-﻿using System.Web.Optimization;
+﻿using System.Linq;
+using System.Web.Optimization;
+using Site.Common;
 using Site.Models.Extensions;
 
 namespace Site
@@ -49,6 +51,14 @@ namespace Site
                 Include("~/Scripts/angular-route.js").
                 Include("~/Scripts/angular-sanitize.min.js").
                 AddTo(bundles);
+
+            new ScriptBundle("~/scriptbundles/users").
+                Include("~/Scripts/Users/user-list.js").
+                AddTo(bundles);
+
+            BundleTable.Bundles.ToList()
+                .FindAll(x => x.GetType() == typeof(ScriptBundle))
+                .ForEach(b => b.Transforms.Add(new JsRemoveSourceMappingUrlTransform()));
         }
     }
 }

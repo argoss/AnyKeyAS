@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Servicing.Data;
+using Servicing.Extensions;
 
 namespace Servicing.Requests
 {
@@ -70,7 +71,6 @@ namespace Servicing.Requests
                 Id = model.Id,
                 CreationDate = model.CreationDate,
                 ExecutionDate = model.ExecutionDate,
-                ClientId = model.ClientId
             };
         }
 
@@ -81,7 +81,7 @@ namespace Servicing.Requests
                 Id = item.Id,
                 CreationDate = item.CreationDate,
                 ExecutionDate = item.ExecutionDate,
-                ClientId = item.ClientId
+                ClientName = item.Client.Dot(x => x.Name)
             };
         }
     }

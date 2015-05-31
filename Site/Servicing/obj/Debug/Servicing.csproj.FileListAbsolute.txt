@@ -94,3 +94,5 @@ C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.Migrations._1.resource
 C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.csproj.GenerateResource.Cache
 C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.dll
 C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.pdb
+C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\JetBrains.Annotations.dll
+C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\JetBrains.Annotations.xml

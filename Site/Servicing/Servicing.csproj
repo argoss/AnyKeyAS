@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\packages\JetBrains.Annotations.9.1.1\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -125,6 +128,7 @@
     <Compile Include="Data\Equipment.cs" />
     <Compile Include="Data\Request.cs" />
     <Compile Include="Extensions\RelfectionExtensions.cs" />
+    <Compile Include="Extensions\TraversingExtensions.cs" />
     <Compile Include="Migrations\201504281727096_1.cs" />
     <Compile Include="Migrations\201504281727096_1.Designer.cs">
       <DependentUpon>201504281727096_1.cs</DependentUpon>

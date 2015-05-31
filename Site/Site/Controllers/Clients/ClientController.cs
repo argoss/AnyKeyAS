@@ -19,7 +19,7 @@ namespace Site.Controllers.Clients
         {
             var model = _clientService.GetClients().Result;
 
-            return PartialView(new ClientListViewModel { List = Mapper.Map<ClientModel[], ClientViewModel[]>(model) });
+            return View(new ClientListViewModel { List = Mapper.Map<ClientModel[], ClientViewModel[]>(model) });
         }
     }
 }
