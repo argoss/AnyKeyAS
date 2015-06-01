@@ -54,6 +54,11 @@
 @*@Html.NgPartial("Requests", "Requests.html")*@
 @Html.NgPartial("Users", "Users.html")
 
+@section Scripts
+{
+    @Scripts.Render("~/scriptbundles/users")
+}
+
 <script type="text/javascript">
     
     function menuItemClick(menuItemName, link) {

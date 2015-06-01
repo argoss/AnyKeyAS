@@ -23,7 +23,7 @@ namespace Site.Controllers.User
                 UserUrl = Url.HttpRouteUrl("DefaultApi", new {controller = "UserApi"})
             };
 
-            return View(url);
+            return View("MainMenu/Users", url);
         }
     }
 }

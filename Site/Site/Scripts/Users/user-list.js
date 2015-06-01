@@ -28,7 +28,7 @@
 
     Users.UserCtrl = UserCtrl;
     UserCtrl.$inject = ['$scope', '$http'];
-    var app = angular.module("anykeyApp", ['ui.bootstrap', 'ngRoute']);
+    var app = angular.module("anykeyApp", ['ngRoute']);
     
     function configFunction($httpProvider) {
         $httpProvider.defaults.cache = false;
