@@ -10,7 +10,7 @@
 
         UserCtrl.prototype.init = function (configuration) {
             var _this = this;
-            this.urlList = configuration.UrlList;
+            this.urlList = configuration.UserUrl;
             this.$scope.items = [];
 
             this.$http.get(this.urlList).then(function (args) {

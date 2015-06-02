@@ -13,29 +13,29 @@
 
 <div class="page-header"><h1>@ViewBag.Title</h1></div>
 
-<div class="row">
-    <div class="col-md-2 sidebar">
-        <nav class="navbar navbar-default sidebar" role="navigation">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active" onclick="javascript:menuItemClick('Обслуживание', '@Model.ServicingUrl');return false;">
-                            <a href="#">Обслуживание<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-wrench"></span></a>
-                        </li>
-                        <li onclick="javascript:menuItemClick('Клиенты', '@Url.Action("Clients", "Client")');return false;">
-                            <a href="#">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a>
-                        </li>
-                        <li onclick="javascript:menuItemClick('Заявки', '@Model.RequestUrl');return false;">
-                            <a href="#">Заявки<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-pushpin"></span></a>
-                        </li>
-                        <li>
-                            <a ng-href="@HttpUtility.UrlDecode(Url.Action("Users","User"))">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-user"></span></a>
-                        </li>
-                    </ul>
-                </div>
+<div class="row" ng-controller="MainMenuCtrl" ng-cloak x-ng-init="controller.init()">
+    <div class=" col-md-2 sidebar">
+    <nav class="navbar navbar-default sidebar" role="navigation">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active" onclick="javascript:menuItemClick('Обслуживание', '@Model.ServicingUrl');return false;">
+                        <a href="#">Обслуживание<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-wrench"></span></a>
+                    </li>
+                    <li onclick="javascript:menuItemClick('Клиенты', '@Url.Action("Clients", "Client")');return false;">
+                        <a href="#">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a>
+                    </li>
+                    <li onclick="javascript:menuItemClick('Заявки', '@Model.RequestUrl');return false;">
+                        <a href="#">Заявки<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-pushpin"></span></a>
+                    </li>
+                    <li>
+                        <a ng-click="controller.UserList()">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-user"></span></a>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
+</div>
     <div class="col-md-10">
         <div class="panel panel-default">
             <div class="panel-heading" id="panel-heading">
@@ -56,10 +56,10 @@
 
 @section Scripts
 {
-    @Scripts.Render("~/scriptbundles/users")
+    @Scripts.Render("~/scriptbundles/main-menu")
 }
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     
     function menuItemClick(menuItemName, link) {
 
@@ -79,4 +79,4 @@
         });
     }
 
-</script>
+</script>*@

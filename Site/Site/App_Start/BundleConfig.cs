@@ -52,7 +52,8 @@ namespace Site
                 Include("~/Scripts/angular-sanitize.min.js").
                 AddTo(bundles);
 
-            new ScriptBundle("~/scriptbundles/users").
+            new ScriptBundle("~/scriptbundles/main-menu").
+                Include("~/Scripts/MainMenu/main-menu.js").
                 Include("~/Scripts/Users/user-list.js").
                 AddTo(bundles);
 
