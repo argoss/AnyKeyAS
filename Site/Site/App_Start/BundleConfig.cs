@@ -37,6 +37,19 @@ namespace Site
                 Include("~/Scripts/bootstrap-datepicker.js").
                 AddTo(BundleTable.Bundles);
 
+            new ScriptBundle("~/scriptbundles/jquery").
+                Include("~/Scripts/jquery-{version}.js").
+                Include("~/Scripts/jquery.validate.js").
+                Include("~/Scripts/jquery.validate.unobtrusive.js").
+                AddTo(BundleTable.Bundles);
+
+            new ScriptBundle("~/scriptbundles/bootstrap").
+				Include("~/Scripts/bootstrap.js").
+				Include("~/Scripts/bootstrap.validate.js").
+				Include("~/Scripts/bootstrap-datepicker.js").
+				Include("~/Scripts/bootstrap-notify.js").
+                AddTo(BundleTable.Bundles);
+
             new StyleBundle("~/stylebundles/bootstrap").
                 Include("~/Content/bootstrap.css").
                 Include("~/Content/bootstrap-theme.css").

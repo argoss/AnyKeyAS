@@ -1,7 +1,7 @@
 ﻿var MainMenu;
 (function (MainMenu) {
     'use strict';
-    var MainMenuCtrl = (function () {
+    var MainMenuCtrl = (function ($scope) {
         function MainMenuCtrl($scope, $http, $location) {
             this.$scope = $scope;
             this.$location = $location;
@@ -39,7 +39,7 @@
 
     app.controller('MainMenuCtrl', MainMenuCtrl);
 
-    app.config([
+    /*app.config([
         '$routeProvider',
         function ($routeProvider) {
             $routeProvider.when('/Users', {
@@ -54,5 +54,5 @@
             });
             ;
         }
-    ]);
+    ]);*/
 })(MainMenu || (MainMenu = {}));
