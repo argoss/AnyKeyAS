@@ -1,7 +1,7 @@
 ﻿var Users;
 (function (Users) {
     'use strict';
-    var UserCtrl = (function () {
+    var UserCtrl = (function ($scope) {
         function UserCtrl($scope, $http) {
             this.$scope = $scope;
             this.$http = $http;

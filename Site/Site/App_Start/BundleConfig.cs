@@ -32,6 +32,11 @@ namespace Site
             bundles.Add(new StyleBundle("~/Content/styles").Include(
                       "~/Content/styles/main-menu.css"));
 
+            new ScriptBundle("~/scriptbundles/html5").
+                Include("~/Scripts/html5shiv.js").
+                Include("~/Scripts/respond.min.js").
+                AddTo(BundleTable.Bundles);
+
             new ScriptBundle("~/scriptbundles/bootstrap").
                 Include("~/Scripts/bootstrap.js").
                 Include("~/Scripts/bootstrap-datepicker.js").
