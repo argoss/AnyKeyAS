@@ -1,12 +1,12 @@
 ﻿'use strict';
-var UserCtrl = (function () {
-    function UserCtrl($scope, $http) {
+var ClientCtrl = (function () {
+    function ClientCtrl($scope, $http) {
         this.$scope = $scope;
         this.$http = $http;
         $scope.controller = this;
     }
 
-    UserCtrl.prototype.init = function (configuration) {
+    ClientCtrl.prototype.init = function (configuration) {
         var _this = this;
         this.urlList = configuration;
         this.$scope.items = [];
@@ -19,13 +19,13 @@ var UserCtrl = (function () {
         }).finally(function () {
 
         });
-        
+
     };
 
-    return UserCtrl;
+    return ClientCtrl;
 })();
 
-UserCtrl.$inject = ['$scope', '$http'];
+ClientCtrl.$inject = ['$scope', '$http'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
@@ -35,4 +35,4 @@ function configFunction($httpProvider) {
 configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
-app.controller('UserCtrl', UserCtrl);
+app.controller('ClientCtrl', ClientCtrl);

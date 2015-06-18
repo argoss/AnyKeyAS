@@ -71,9 +71,16 @@ namespace Site
                 AddTo(bundles);
 
             new ScriptBundle("~/scriptbundles/main-menu").
+                Include("~/Scripts/Shared/common-tools.js").
                 Include("~/Scripts/MainMenu/main-menu.js").
                 Include("~/Scripts/Users/user-list.js").
+                Include("~/Scripts/Clients/client-list.js").
+                Include("~/Scripts/Requests/request-list.js").
                 AddTo(bundles);
+
+           /* new ScriptBundle("~/scriptbundles/user-list").
+                Include("~/Scripts/Users/user-list.js").
+                AddTo(bundles);*/
 
             BundleTable.Bundles.ToList()
                 .FindAll(x => x.GetType() == typeof(ScriptBundle))

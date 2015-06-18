@@ -22,11 +22,11 @@
                         <li class="active" onclick="javascript:menuItemClick('Обслуживание', '@Model.ServicingUrl');return false;">
                             <a href="#">Обслуживание<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-wrench"></span></a>
                         </li>
-                        <li onclick="javascript:menuItemClick('Клиенты', '@Url.Action("Clients", "Client")');return false;">
-                            <a href="#">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a>
+                        <li>
+                            <a ng-click="controller.ClientList()">Клиенты<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-bookmark"></span></a>
                         </li>
-                        <li onclick="javascript:menuItemClick('Заявки', '@Model.RequestUrl');return false;">
-                            <a href="#">Заявки<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-pushpin"></span></a>
+                        <li>
+                            <a ng-click="controller.RequestList()">Заявки<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-pushpin"></span></a>
                         </li>
                         <li>
                             <a ng-click="controller.UserList()">Пользователи<span style="font-size:16px;" class="pull-right hidden-xs glyphicon glyphicon-user"></span></a>
@@ -50,75 +50,14 @@
     </div>
 </div>
 
-@*@Html.NgPartial("Clients", "Clients.html")*@
-@*@Html.NgPartial("Requests", "Requests.html")*@
 @Html.NgPartial("Users", "Users.html")
+@Html.NgPartial("Requests", "Requests.html")
+@Html.NgPartial("Clients", "Clients.html")
 
 @section Scripts
 {
-    @*    @Scripts.Render("~/scriptbundles/main-menu")*@
-<script type="text/javascript">
-
-    var MainMenu;
-    (function (MainMenu) {
-        'use strict';
-        var MainMenuCtrl = (function ($scope) {
-            function MainMenuCtrl($scope, $http, $location) {
-                this.$scope = $scope;
-                this.$location = $location;
-                this.$http = $http;
-                $scope.controller = this;
-            }
-
-            MainMenuCtrl.prototype.init = function () {
-                var _this = this;
-
-            }
-
-            MainMenuCtrl.prototype.UserList = function () {
-                this.$location.path("Users/");
-            };
-
-            MainMenuCtrl.prototype.RequestList = function () {
-
-            };
-
-            MainMenuCtrl.prototype.ClientList = function () {
-
-            };
-
-            return MainMenuCtrl;
-        })();
-
-        MainMenu.MainMenuCtrl = MainMenuCtrl;
-        MainMenuCtrl.$inject = ['$scope', '$http', '$location'];
-        var app = angular.module("anykeyApp", ['ngRoute']);
-
-        function configFunction($httpProvider) {
-            $httpProvider.defaults.cache = false;
-        }
-
-        app.controller('MainMenuCtrl', MainMenuCtrl);
-
-        app.config([
-            '$routeProvider',
-            function ($routeProvider) {
-                $routeProvider.when('/Users', {
-                    templateUrl: 'Users.html',
-                    controller: Users.UserCtrl
-                })/*.when('/Requests', {
-                    templateUrl: 'Requests.html',
-                    controller: Requests.RequestCtrl
-                }).when('/Clients', {
-                    templateUrl: 'Clients.html',
-                    controller: Clients.ClientCtrl
-                });*/
-                ;
-            }
-        ]);
-    })(MainMenu || (MainMenu = {}));
-
-</script>
+    @Scripts.Render("~/scriptbundles/main-menu")
+@*    <script src="~/Scripts/MainMenu/main-menu.js" type="text/javascript"></script>*@
 }
 
 

@@ -3,8 +3,12 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using AutoMapper;
 using Servicing.Account;
+using Servicing.Clients;
 using Site.Models;
+using Site.Models.Clients;
+using Site.Models.Users;
 
 namespace Site.Controllers.User
 {
@@ -68,10 +72,17 @@ namespace Site.Controllers.User
         }*/
 
         [HttpGet]
-        public async Task GetUsers(string name)
+        public async Task<UserListViewModel> GetUsers()
+        {
+            var items = await _accountService.GetUsers().ConfigureAwait(false);
+            return new UserListViewModel { List = Mapper.Map<UserEditModel[], UserViewModel[]>(items) };
+        }
+
+        /*[HttpGet]
+        public async Task GetUser(string name)
         {
             await _accountService.GetUser(name);
-        }
+        }*/
 
         [HttpDelete]
         public async Task DeleteUser(string name)
