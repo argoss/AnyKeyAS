@@ -9,18 +9,21 @@ var MainMenuCtrl = (function () {
 
     MainMenuCtrl.prototype.init = function () {
         var _this = this;
-
+        _this.$scope.currentItem = "";
     }
 
     MainMenuCtrl.prototype.UserList = function () {
+        this.$scope.currentItem = "Пользователи";
         this.$location.path("/Users");
     };
 
     MainMenuCtrl.prototype.RequestList = function () {
+        this.$scope.currentItem = "Заявки";
         this.$location.path("/Requests");
     };
 
     MainMenuCtrl.prototype.ClientList = function () {
+        this.$scope.currentItem = "Клиенты";
         this.$location.path("/Clients");
     };
 
@@ -47,8 +50,7 @@ app.config([
             controller: RequestCtrl
         }).when('/Clients', {
             templateUrl: 'Clients.html',
-            controller: ClientCtrl
+            controller: ClientListCtrl
         });
-        ;
     }
 ]);

@@ -1,17 +1,18 @@
 ﻿'use strict';
-var ClientCtrl = (function () {
-    function ClientCtrl($scope, $http) {
+var ClientListCtrl = (function () {
+    function ClientListCtrl($scope, $http, $location) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$location = $location;
         $scope.controller = this;
     }
 
-    ClientCtrl.prototype.init = function (configuration) {
+    ClientListCtrl.prototype.init = function (configuration) {
         var _this = this;
         this.urlList = configuration;
         this.$scope.items = [];
 
-        this.$http.get(this.urlList).then(function (args) {
+        this.$http.get(this.urlList).then(function (args) {//"/DefaultActionApi/ClientApi/GetClients"
             _this.$scope.items = args.data.List;
             notifySuccess("Items were loaded.");
         }).catch(function (e) {
@@ -19,13 +20,19 @@ var ClientCtrl = (function () {
         }).finally(function () {
 
         });
-
     };
 
-    return ClientCtrl;
+    ClientListCtrl.prototype.ClientEdit = function (id) {
+        if (id == null)
+            this.$location.path("/ClientEdit/");
+        else
+            this.$location.path("/ClientEdit/" + id);
+    };
+
+    return ClientListCtrl;
 })();
 
-ClientCtrl.$inject = ['$scope', '$http'];
+ClientListCtrl.$inject = ['$scope', '$http', '$location'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
@@ -35,4 +42,17 @@ function configFunction($httpProvider) {
 configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
-app.controller('ClientCtrl', ClientCtrl);
+app.controller('ClientListCtrl', ClientListCtrl);
+
+app.config([
+    '$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.when('/ClientEdit/:id', {
+            templateUrl: 'ClientEdit.html',
+            controller: ClientEditCtrl
+        }).when('/ClientEdit/', {
+            templateUrl: 'ClientEdit.html',
+            controller: ClientEditCtrl
+        });
+    }
+]);

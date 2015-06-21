@@ -15,11 +15,12 @@ namespace Site.Controllers.Clients
             _clientService = clientService ?? new ClientService();
         }
 
-        public ActionResult Clients()
+        public ActionResult ClientEdit(int? id = null)
         {
-            var model = _clientService.GetClients().Result;
+            var model = id == null ? new ClientViewModel() : 
+                Mapper.Map<ClientModel, ClientViewModel>(_clientService.GetClient(id.Value).Result);
 
-            return View(new ClientListViewModel { List = Mapper.Map<ClientModel[], ClientViewModel[]>(model) });
+            return View(model);
         }
     }
 }

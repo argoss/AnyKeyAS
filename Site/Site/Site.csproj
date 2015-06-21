@@ -324,6 +324,7 @@
     <Content Include="Scripts\bootstrap-notify.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Clients\client-edit.js" />
     <Content Include="Scripts\Clients\client-list.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1197,6 +1198,7 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\MainMenu\Requests.cshtml" />
     <Content Include="Views\MainMenu\Users.cshtml" />
+    <Content Include="Views\MainMenu\ClientEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

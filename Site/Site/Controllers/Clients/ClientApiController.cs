@@ -23,6 +23,14 @@ namespace Site.Controllers.Clients
             return new ClientListViewModel { List = Mapper.Map<ClientModel[], ClientViewModel[]>(model) };
         }
 
+        [HttpGet]
+        public async Task<ClientViewModel> GetClient(int? id = null)
+        {
+            var model = id == null ? new ClientViewModel() : Mapper.Map<ClientModel, ClientViewModel>(await _clientService.GetClient(id.Value));
+
+            return model;
+        }
+
         [HttpPost]
         public async Task AddClient(ClientViewModel model)
         {
