@@ -44,7 +44,7 @@ app.config([
     function ($routeProvider) {
         $routeProvider.when('/Users', {
             templateUrl: 'Users.html',
-            controller: UserCtrl
+            controller: UserListCtrl
         }).when('/Requests', {
             templateUrl: 'Requests.html',
             controller: RequestCtrl

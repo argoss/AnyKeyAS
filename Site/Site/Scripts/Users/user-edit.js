@@ -1,6 +1,6 @@
 ﻿'use strict';
-var ClientEditCtrl = (function () {
-    function ClientEditCtrl($scope, $http, $location, $routeParams) {
+var UserEditCtrl = (function () {
+    function UserEditCtrl($scope, $http, $location, $routeParams) {
         this.$scope = $scope;
         this.$http = $http;
         this.$location = $location;
@@ -8,12 +8,12 @@ var ClientEditCtrl = (function () {
         $scope.controller = this;
     }
 
-    ClientEditCtrl.prototype.init = function () {
+    UserEditCtrl.prototype.init = function () {
         var _this = this;
-        this.$scope.client = {};
+        this.$scope.user = {};
 
-        this.$http.get("/api/act/ClientApi/GetClient", { params: { id: this.id } }).then(function (args) {
-            _this.$scope.client = args.data;
+        this.$http.get("/api/act/UserApi/GetUser", { params: { id: this.id } }).then(function (args) {
+            _this.$scope.user = args.data;
             notifySuccess("Item were loaded.");
         }).catch(function (e) {
             notifyError("Unable to get item.", e);
@@ -22,20 +22,20 @@ var ClientEditCtrl = (function () {
         });
     };
 
-    ClientEditCtrl.prototype.save = function () {
-        this.$http.post("/api/ClientApi", this.$scope.client).catch(function (e) {
+    UserEditCtrl.prototype.save = function () {
+        this.$http.post("/api/UserApi", this.$scope.user).catch(function (e) {
             notifyError("Error saving model.", e);
         });
     };
 
-    ClientEditCtrl.prototype.cancel = function() {
+    UserEditCtrl.prototype.cancel = function () {
         this.$location.path("");
     }
 
-    return ClientEditCtrl;
+    return UserEditCtrl;
 })();
 
-ClientEditCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+UserEditCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
@@ -45,4 +45,4 @@ function configFunction($httpProvider) {
 configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
-app.controller('ClientEditCtrl', ClientEditCtrl);
+app.controller('UserEditCtrl', UserEditCtrl);

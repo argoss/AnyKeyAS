@@ -77,6 +77,7 @@ namespace Site
                 Include("~/Scripts/Clients/client-list.js").
                 Include("~/Scripts/Requests/request-list.js").
                 Include("~/Scripts/Clients/client-edit.js").
+                Include("~/Scripts/Users/user-edit.js").
                 AddTo(bundles);
 
            /* new ScriptBundle("~/scriptbundles/user-list").

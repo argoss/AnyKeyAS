@@ -6,6 +6,7 @@ using System.Web.Http;
 using AutoMapper;
 using Servicing.Account;
 using Servicing.Clients;
+using Servicing.Users;
 using Site.Models;
 using Site.Models.Clients;
 using Site.Models.Users;
@@ -76,6 +77,14 @@ namespace Site.Controllers.User
         {
             var items = await _accountService.GetUsers().ConfigureAwait(false);
             return new UserListViewModel { List = Mapper.Map<UserEditModel[], UserViewModel[]>(items) };
+        }
+
+        [HttpGet]
+        public async Task<UserViewModel> GetUser(int? id = null)
+        {
+            var model = id == null ? new UserViewModel() : Mapper.Map<UserEditModel, UserViewModel>(await _accountService.GetUser(id.Value));
+
+            return model;
         }
 
         /*[HttpGet]

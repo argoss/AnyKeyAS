@@ -1,14 +1,26 @@
-﻿<form class="modal-body" ng-controller="ClientEditCtrl" ng-cloak x-ng-init="controller.init()">
+﻿<div class="modal-body" ng-controller="ClientEditCtrl" ng-cloak x-ng-init="controller.init()">
     <div class="form-group">
         <label for="shortname">Имя коротко</label>
-        <input type="text" id="shortname" ng-model="client.ShortName" class="form-control" placeholder="ShortName" />
+        <input type="text" id="shortname" ng-model="client.ShortName" class="form-control" placeholder="Иван" />
     </div>
     <div class="form-group">
         <label for="name">Полное имя</label>
-        <input type="text" id="name" ng-model="client.Name" class="form-control" placeholder="Name" />
+        <input type="text" id="name" ng-model="client.Name" class="form-control" placeholder="Иванов Иван Иванович" />
     </div>
     <div class="form-group">
         <label for="address">Адрес</label>
-        <input type="text" id="address" ng-model="client.Address" class="form-control" placeholder="address" />
+        <input type="text" id="address" ng-model="client.Address" class="form-control" placeholder="ул. Ленина д. 100 оф. 10" />
     </div>
-</form>
+    <div class="form-group">
+        <label for="ownPhone">Личный телефон</label>
+        <input type="text" id="ownPhone" ng-model="client.OwnPhone" class="form-control" placeholder="8914-999-99-99" />
+    </div>
+    <div class="form-group">
+        <label for="workPhone">Рабочий телефон</label>
+        <input type="text" id="workPhone" ng-model="client.WorkPhone" class="form-control" placeholder="8800-800-80-80" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="controller.cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="controller.save()">Save</button>
+    </div>
+</div>

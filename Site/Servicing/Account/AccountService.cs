@@ -178,9 +178,9 @@ namespace Servicing.Account
             return users.Select(FromDB).ToArray();
         }
 
-        public async Task<UserEditModel> GetUser(string userName)
+        public async Task<UserEditModel> GetUser(int id)
         {
-            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
 
             if (user == null) return null;
 

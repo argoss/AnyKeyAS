@@ -23,6 +23,7 @@ var ClientListCtrl = (function () {
     };
 
     ClientListCtrl.prototype.ClientEdit = function (id) {
+        this.$scope.$parent.controller.$scope.currentItem = "Редактирование клиента";
         if (id == null)
             this.$location.path("/ClientEdit/");
         else
@@ -53,6 +54,7 @@ app.config([
         }).when('/ClientEdit/', {
             templateUrl: 'ClientEdit.html',
             controller: ClientEditCtrl
-        });
+        })
+        .otherwise({ templateUrl: 'Clients.html', controller: ClientListCtrl });
     }
 ]);

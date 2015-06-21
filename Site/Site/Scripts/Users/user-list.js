@@ -1,12 +1,13 @@
 ﻿'use strict';
-var UserCtrl = (function () {
-    function UserCtrl($scope, $http) {
+var UserListCtrl = (function () {
+    function UserListCtrl($scope, $http, $location) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$location = $location;
         $scope.controller = this;
     }
 
-    UserCtrl.prototype.init = function (configuration) {
+    UserListCtrl.prototype.init = function (configuration) {
         var _this = this;
         this.urlList = configuration;
         this.$scope.items = [];
@@ -19,13 +20,20 @@ var UserCtrl = (function () {
         }).finally(function () {
 
         });
-        
     };
 
-    return UserCtrl;
+    UserListCtrl.prototype.UserEdit = function (id) {
+        this.$scope.$parent.controller.$scope.currentItem = "Редактирование данных пользователя";
+        if (id == null)
+            this.$location.path("/UserEdit/");
+        else
+            this.$location.path("/UserEdit/" + id);
+    };
+
+    return UserListCtrl;
 })();
 
-UserCtrl.$inject = ['$scope', '$http'];
+UserListCtrl.$inject = ['$scope', '$http', '$location'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
@@ -35,4 +43,18 @@ function configFunction($httpProvider) {
 configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
-app.controller('UserCtrl', UserCtrl);
+app.controller('UserListCtrl', UserListCtrl);
+
+app.config([
+    '$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.when('/UserEdit/:id', {
+            templateUrl: 'UserEdit.html',
+            controller: UserEditCtrl
+        }).when('/UserEdit/', {
+            templateUrl: 'UserEdit.html',
+            controller: UserEditCtrl
+        })
+        .otherwise({ templateUrl: 'UserEdit.html', controller: UserEditCtrl });
+    }
+]);

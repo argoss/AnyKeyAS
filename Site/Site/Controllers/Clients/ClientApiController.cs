@@ -18,7 +18,7 @@ namespace Site.Controllers.Clients
         [HttpGet]
         public async Task<ClientListViewModel> GetClients()
         {
-            var model = await _clientService.GetClients();
+            var model = await _clientService.GetClients().ConfigureAwait(false);
 
             return new ClientListViewModel { List = Mapper.Map<ClientModel[], ClientViewModel[]>(model) };
         }
@@ -26,7 +26,7 @@ namespace Site.Controllers.Clients
         [HttpGet]
         public async Task<ClientViewModel> GetClient(int? id = null)
         {
-            var model = id == null ? new ClientViewModel() : Mapper.Map<ClientModel, ClientViewModel>(await _clientService.GetClient(id.Value));
+            var model = id == null ? new ClientViewModel() : Mapper.Map<ClientModel, ClientViewModel>(await _clientService.GetClient(id.Value).ConfigureAwait(false));
 
             return model;
         }
@@ -40,7 +40,7 @@ namespace Site.Controllers.Clients
         [HttpDelete]
         public async Task DeleteClient(int id)
         {
-            await _clientService.DeleteClient(id);
+            await _clientService.DeleteClient(id).ConfigureAwait(false);
         }
     }
 }
