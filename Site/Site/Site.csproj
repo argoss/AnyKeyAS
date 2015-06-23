@@ -1203,6 +1203,7 @@
     <Content Include="Views\MainMenu\ClientEdit.cshtml" />
     <Content Include="Views\MainMenu\UserEdit.cshtml" />
     <Content Include="Views\MainMenu\RequestAdd.cshtml" />
+    <Content Include="Views\MainMenu\UserAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

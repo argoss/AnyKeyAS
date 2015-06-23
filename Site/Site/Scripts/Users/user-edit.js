@@ -23,7 +23,9 @@ var UserEditCtrl = (function () {
     };
 
     UserEditCtrl.prototype.save = function () {
-        this.$http.post("/api/UserApi", this.$scope.user).catch(function (e) {
+        this.$http.post("/api/UserApi", this.$scope.user).then(function () {
+            this.$location.path("");
+        }).catch(function (e) {
             notifyError("Error saving model.", e);
         });
     };
@@ -46,3 +48,14 @@ configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
 app.controller('UserEditCtrl', UserEditCtrl);
+
+app.config([
+    '$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.when('/Users', {
+            templateUrl: 'Users.html',
+            controller: UserListCtrl
+        })
+        .otherwise({ templateUrl: 'Users.html', controller: UserListCtrl });
+    }
+]);

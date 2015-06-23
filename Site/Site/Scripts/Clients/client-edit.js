@@ -18,12 +18,14 @@ var ClientEditCtrl = (function () {
         }).catch(function (e) {
             notifyError("Unable to get item.", e);
         }).finally(function () {
-
+            
         });
     };
 
     ClientEditCtrl.prototype.save = function () {
-        this.$http.post("/api/ClientApi", this.$scope.client).catch(function (e) {
+        this.$http.post("/api/ClientApi", this.$scope.client).then(function () {
+            this.$location.path("");
+        }).catch(function (e) {
             notifyError("Error saving model.", e);
         });
     };
@@ -46,3 +48,14 @@ configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
 app.controller('ClientEditCtrl', ClientEditCtrl);
+
+app.config([
+    '$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.when('/Clients', {
+            templateUrl: 'Clients.html',
+            controller: ClientListCtrl
+        })
+        .otherwise({ templateUrl: 'Clients.html', controller: ClientListCtrl });
+    }
+]);

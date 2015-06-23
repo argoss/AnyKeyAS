@@ -18,7 +18,7 @@ var RequestListCtrl = (function () {
         }).catch(function (e) {
             notifyError("Unable to get items.", e);
         }).finally(function () {
-
+            
         });
     };
 

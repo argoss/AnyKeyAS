@@ -25,7 +25,7 @@ namespace Site.Models.Clients
         public string Name { get; set; }
 
         [Required]
-        public string Addres { get; set; }
+        public string Address { get; set; }
 
         [Required]
         public string OwnPhone { get; set; }

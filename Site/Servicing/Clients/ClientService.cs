@@ -33,17 +33,22 @@ namespace Servicing.Clients
             using (var dc = new AnykeyDbCntext())
             {
                 var item = await dc.Clients.FirstOrDefaultAsync(x => x.Id == model.Id).ConfigureAwait(false);
+
                 if (item == null)
                 {
-                    item = new Client();
+                    item = ToDb(model);
                     dc.Clients.Add(item);
                 }
+                else
+                {
+                    item = ToDb(model);
 
-                item.Name = model.Name;
-                item.OwnPhone = model.OwnPhone;
-                item.WorkPhone = model.WorkPhone;
-                item.ShortName = model.ShortName;
-                item.Addres = model.Addres;
+                    /*item.Name = model.Name;
+                    item.OwnPhone = model.OwnPhone;
+                    item.WorkPhone = model.WorkPhone;
+                    item.ShortName = model.ShortName;
+                    item.Address = model.Address;*/
+                }
 
                 await dc.SaveChangesAsync().ConfigureAwait(false);
             }
@@ -68,8 +73,9 @@ namespace Servicing.Clients
         {
             return new Client
             {
-                Id = model.Id,
-                Addres = model.Addres,
+                //Id = model.Id,
+                Name = model.Name,
+                Address = model.Address,
                 OwnPhone = model.OwnPhone,
                 WorkPhone = model.WorkPhone,
                 ShortName = model.ShortName
@@ -81,7 +87,7 @@ namespace Servicing.Clients
             return new ClientModel
             {
                 Id = item.Id,
-                Addres = item.Addres,
+                Address = item.Address,
                 Name = item.Name,
                 OwnPhone = item.OwnPhone,
                 WorkPhone = item.WorkPhone,
