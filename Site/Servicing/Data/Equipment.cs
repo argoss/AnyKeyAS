@@ -6,6 +6,7 @@ namespace Servicing.Data
     [Table("Equipment")]
     public class Equipment
     {
+
         [Key, Column(Order = 0)]
         public int Id { get; set; }
 
@@ -13,6 +14,8 @@ namespace Servicing.Data
         [MaxLength(128)]
         public string Name { get; set; }
 
+        public int ClientId { get; set; }
 
+        public virtual Client Client { get; set; }
     }
 }

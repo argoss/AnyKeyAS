@@ -16,6 +16,16 @@ namespace Servicing.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.Requests)
+                .WithRequired(e => e.Client)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Client>()
+                .HasMany(e => e.Equipment)
+                .WithRequired(e => e.Client)
+                .WillCascadeOnDelete(false);
         }
     }
 }

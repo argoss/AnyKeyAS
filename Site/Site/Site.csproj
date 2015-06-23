@@ -1159,6 +1159,7 @@
     <Content Include="Scripts\MainMenu\main-menu.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\Requests\request-add.js" />
     <Content Include="Scripts\Requests\request-list.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -1201,6 +1202,7 @@
     <Content Include="Views\MainMenu\Users.cshtml" />
     <Content Include="Views\MainMenu\ClientEdit.cshtml" />
     <Content Include="Views\MainMenu\UserEdit.cshtml" />
+    <Content Include="Views\MainMenu\RequestAdd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

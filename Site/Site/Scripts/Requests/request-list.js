@@ -1,12 +1,13 @@
 ﻿'use strict';
-var RequestCtrl = (function () {
-    function RequestCtrl($scope, $http) {
+var RequestListCtrl = (function () {
+    function RequestListCtrl($scope, $http, $location) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$location = $location;
         $scope.controller = this;
     }
 
-    RequestCtrl.prototype.init = function (configuration) {
+    RequestListCtrl.prototype.init = function (configuration) {
         var _this = this;
         this.urlList = configuration;
         this.$scope.items = [];
@@ -19,13 +20,17 @@ var RequestCtrl = (function () {
         }).finally(function () {
 
         });
-
     };
 
-    return RequestCtrl;
+    RequestListCtrl.prototype.AddRequest = function () {
+        this.$scope.$parent.controller.$scope.currentItem = "Добавление заявки.";
+        this.$location.path("/RequestAdd/");
+    };
+
+    return RequestListCtrl;
 })();
 
-RequestCtrl.$inject = ['$scope', '$http'];
+RequestListCtrl.$inject = ['$scope', '$http', '$location'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
@@ -35,4 +40,15 @@ function configFunction($httpProvider) {
 configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
-app.controller('RequestCtrl', RequestCtrl);
+app.controller('RequestListCtrl', RequestListCtrl);
+
+app.config([
+    '$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.when('/RequestAdd/', {
+            templateUrl: 'RequestAdd.html',
+            controller: RequestListCtrl
+        })
+        .otherwise({ templateUrl: 'RequestAdd.html', controller: RequestListCtrl });
+    }
+]);

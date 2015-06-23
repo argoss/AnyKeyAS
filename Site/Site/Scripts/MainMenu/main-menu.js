@@ -47,7 +47,7 @@ app.config([
             controller: UserListCtrl
         }).when('/Requests', {
             templateUrl: 'Requests.html',
-            controller: RequestCtrl
+            controller: RequestListCtrl
         }).when('/Clients', {
             templateUrl: 'Clients.html',
             controller: ClientListCtrl

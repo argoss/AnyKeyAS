@@ -1,0 +1,18 @@
+﻿<div class="modal-body" ng-controller="RequestAddCtrl" ng-cloak x-ng-init="controller.init()">
+    <div class="form-group">
+        <label for="creationDate">Дата поступления</label>
+        <input type="text" id="creationDate" ng-model="request.CreationDate" class="form-control" placeholder="Иван" />
+    </div>
+    <div class="form-group">
+        <label for="executionDate">Дата исполнения</label>
+        <input type="text" id="executionDate" ng-model="request.ExecutionDate" class="form-control" placeholder="Иванов Иван Иванович" />
+    </div>
+    <div class="form-group">
+        <label for="status">Статус</label>
+        <input type="text" id="status" ng-model="request.Status" class="form-control" placeholder="ул. Ленина д. 100 оф. 10" />
+    </div>
+    <div class="form-group">
+        <label for="client">Клиент</label>
+        <input type="text" id="client" ng-model="request.ClientName" class="form-control" placeholder="8914-999-99-99" />
+    </div>
+</div>
