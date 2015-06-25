@@ -1,6 +1,6 @@
 ﻿'use strict';
-var UserEditCtrl = (function () {
-    function UserEditCtrl($scope, $http, $location, $routeParams) {
+var UserCreateCtrl = (function () {
+    function UserCreateCtrl($scope, $http, $location, $routeParams) {
         this.$scope = $scope;
         this.$http = $http;
         this.$location = $location;
@@ -8,36 +8,47 @@ var UserEditCtrl = (function () {
         $scope.controller = this;
     }
 
-    UserEditCtrl.prototype.init = function () {
+    UserCreateCtrl.prototype.init = function () {
         var _this = this;
-        this.$scope.user = {};
 
-        this.$http.get("/api/act/UserApi/GetUser", { params: { id: this.id } }).then(function (args) {
+        this.$http.get("/api/act/UserApi/GetCreateModel").then(function (args) {
             _this.$scope.user = args.data;
-            notifySuccess("Item were loaded.");
         }).catch(function (e) {
-            notifyError("Unable to get item.", e);
+            notifyError("Unable to get model.", e);
         }).finally(function () {
 
         });
+
+        /*this.$scope.user = {
+            UserName: "",
+            FirstName: "",
+            Name: "",
+            Patronymic: "",
+            Password: "",
+            ConfirmPassword: "",
+            Position: "",
+            Email: "",
+            Phone: "",
+            Roles: []
+        };*/
     };
 
-    UserEditCtrl.prototype.saveUser = function () {
-        this.$http.post("/api/act/UserApi/Edit", this.$scope.user).then(function () {
+    UserCreateCtrl.prototype.addUser = function () {
+        this.$http.post("/api/act/UserApi/Create", this.$scope.user).then(function () {
             this.$location.path("");
         }).catch(function (e) {
             notifyError("Error saving model.", e);
         });
     };
 
-    UserEditCtrl.prototype.cancel = function () {
+    UserCreateCtrl.prototype.cancel = function () {
         this.$location.path("");
     }
 
-    return UserEditCtrl;
+    return UserCreateCtrl;
 })();
 
-UserEditCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+UserCreateCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
@@ -47,7 +58,7 @@ function configFunction($httpProvider) {
 configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
-app.controller('UserEditCtrl', UserEditCtrl);
+app.controller('UserCreateCtrl', UserCreateCtrl);
 
 app.config([
     '$routeProvider',

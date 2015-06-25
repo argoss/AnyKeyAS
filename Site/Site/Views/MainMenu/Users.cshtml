@@ -2,7 +2,7 @@
 
 <div class="modal-body" ng-controller="UserListCtrl" ng-cloak x-ng-init="controller.init(@Json.Encode(Model.UserUrl))">
     <div class="row">
-        <button type="button" class="btn btn-default" ng-click="controller.UserEdit()">Добавить нового пользователя</button>
+        <button type="button" class="btn btn-default" ng-click="controller.UserCreate()">Добавить нового пользователя</button>
     </div>
     <table class="table table-striped table-hover">
         <thead>
@@ -45,8 +45,12 @@
                 <td>
                     <span ng-bind="item.Roles"></span>
                 </td>
-                <td class="glyphicon glyphicon-pencil"></td>
-                <td calss="glyphicon glyphicon-remove"></td>
+                <td class="glyphicon glyphicon-pencil">
+                    <span ng-click="controller.UserEdit(item.Id)"></span>
+                </td>
+                <td calss="glyphicon glyphicon-remove">
+                    
+                </td>
             </tr>
         </tbody>
     </table>

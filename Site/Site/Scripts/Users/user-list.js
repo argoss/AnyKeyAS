@@ -24,10 +24,12 @@ var UserListCtrl = (function () {
 
     UserListCtrl.prototype.UserEdit = function (id) {
         this.$scope.$parent.controller.$scope.currentItem = "Редактирование данных пользователя";
-        if (id == null)
-            this.$location.path("/UserEdit/");
-        else
-            this.$location.path("/UserEdit/" + id);
+        this.$location.path("/UserEdit/" + id);
+    };
+
+    UserListCtrl.prototype.UserCreate = function () {
+        this.$scope.$parent.controller.$scope.currentItem = "Создание нового пользователя";
+        this.$location.path("/UserAdd/");
     };
 
     return UserListCtrl;
@@ -51,10 +53,9 @@ app.config([
         $routeProvider.when('/UserEdit/:id', {
             templateUrl: 'UserEdit.html',
             controller: UserEditCtrl
-        }).when('/UserEdit/', {
-            templateUrl: 'UserEdit.html',
-            controller: UserEditCtrl
-        })
-        .otherwise({ templateUrl: 'UserEdit.html', controller: UserEditCtrl });
+        }).when('/UserAdd/', {
+            templateUrl: 'UserAdd.html',
+            controller: UserCreateCtrl
+        });
     }
 ]);

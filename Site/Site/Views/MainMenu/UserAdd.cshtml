@@ -1,1 +1,46 @@
-﻿
+﻿<div class="modal-body" ng-controller="UserCreateCtrl" ng-cloak x-ng-init="controller.init()">
+    <div class="form-group">
+        <label for="username">Никнейм</label>
+        <input type="text" id="username" ng-model="user.UserName" class="form-control" placeholder="nick" />
+    </div>
+    <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" ng-model="user.password" class="form-control" placeholder="*****" />
+    </div>
+    <div class="form-group">
+        <label for="confirmPassword">Подтверждение пароля</label>
+        <input type="password" id="confirmPassword" ng-model="user.ConfirmPassword" class="form-control" placeholder="*****" />
+    </div>
+    <div class="form-group">
+        <label for="lastname">Фамилия</label>
+        <input type="text" id="lastname" ng-model="user.LastName" class="form-control" placeholder="Иванов" />
+    </div>
+    <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" id="name" ng-model="user.Name" class="form-control" placeholder="Иван" />
+    </div>
+    <div class="form-group">
+        <label for="patronymic">Отчество</label>
+        <input type="text" id="patronymic" ng-model="user.Patronymic" class="form-control" placeholder="Иванович" />
+    </div>
+    <div class="form-group">
+        <label for="position">Должность</label>
+        <input type="text" id="position" ng-model="user.Position" class="form-control" placeholder="Должность" />
+    </div>
+    <div class="form-group">
+        <label for="roles">Роли</label>
+        <input type="text" id="roles" ng-model="user.Roles" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="roles">Роли</label>
+        <select id="roles" class="form-control" ng-model="user.Roles" ng-options="role for role in user.Roles"></select>
+    </div>
+    <div class="form-group">
+        <label for="contacts">Контакты</label>
+        <input type="text" id="contacts" ng-model="user.Contacts" class="form-control" placeholder="8914-999-99-99" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="controller.cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="controller.save()">Save</button>
+    </div>
+</div>

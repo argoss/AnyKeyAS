@@ -24,4 +24,11 @@
             set { _roles = value ?? new string[0]; }
         }
     }
+
+    public class UserCreateModel : UserEditModel
+    {
+        public string Password { get; set; }
+
+        public string ConfirmPassword { get; set; }
+    }
 }

@@ -6,6 +6,7 @@ using System.Web.Http;
 using AutoMapper;
 using Servicing.Account;
 using Servicing.Clients;
+using Servicing.Roles;
 using Servicing.Users;
 using Site.Models;
 using Site.Models.Clients;
@@ -17,25 +18,35 @@ namespace Site.Controllers.User
     public sealed class UserApiController : ApiController
     {
         private IAccountService _accountService;
+        private IRoleService _roleService;
 
-        public UserApiController(IAccountService accountService)
+        public UserApiController(IAccountService accountService, IRoleService roleService)
         {
+            _roleService = roleService;
             _accountService = accountService ?? new AccountService();
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> Create(RegisterViewModel model)
+        public async Task<HttpResponseMessage> Create(UserCreateViewModel model)
         {
             if (model.Password != model.ConfirmPassword || !ModelState.IsValid)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Passwords mismatch");
             }
-            var asResult = await _accountService.CreateUser(model.UserName, model.Password).ConfigureAwait(false);
-            if (!asResult.IsSuccess)
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+            var result = await _accountService.CreateUser(model.UserName, model.Password).ConfigureAwait(false);
 
-            bool result = true;//await ModifyUser(model).ConfigureAwait(false);
-            return Request.CreateResponse(result ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
+            return Request.CreateResponse(result.IsSuccess ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
+
+            /*bool result = await _accountService.ModifyUser(model).ConfigureAwait(false);*/
+        }
+
+        public async Task<UserCreateViewModel> GetCreateModel()
+        {
+            var roles = _roleService.List();
+            return new UserCreateViewModel
+            {
+                Roles = roles.Select(x => x.Name).ToArray()
+            };
         }
 
         /*private async Task<bool> ModifyUser(UserItemModifyViewModel viewModel)
@@ -87,11 +98,13 @@ namespace Site.Controllers.User
             return model;
         }
 
-        /*[HttpGet]
-        public async Task GetUser(string name)
+        [HttpPost]
+        public async Task<HttpResponseMessage> Edit(UserCreateViewModel model)
         {
-            await _accountService.GetUser(name);
-        }*/
+            var result = await _accountService.ModifyUser(Mapper.Map<UserCreateViewModel, UserCreateModel>(model)).ConfigureAwait(false);
+            
+            return Request.CreateResponse(result.IsSuccess ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
+        }
 
         [HttpDelete]
         public async Task DeleteUser(string name)

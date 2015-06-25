@@ -22,6 +22,9 @@ namespace Site.Automapper
             Mapper.CreateMap<UserEditModel, UserViewModel>();
             Mapper.CreateMap<UserViewModel, UserEditModel>();
 
+            Mapper.CreateMap<UserCreateModel, UserCreateViewModel>();
+            Mapper.CreateMap<UserCreateViewModel, UserCreateModel>();
+
             /*Mapper.CreateMap<PageHistoryItemModel, PageHistoryItemViewModel>().
                 ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PageId));
             Mapper.CreateMap<PageHistoryItemViewModel, PageHistoryItemModel>().
