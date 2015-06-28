@@ -331,6 +331,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Clients\client-edit.js" />
     <Content Include="Scripts\Clients\client-list.js" />
+    <Content Include="Scripts\Shared\directives.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />

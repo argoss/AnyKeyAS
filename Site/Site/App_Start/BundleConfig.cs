@@ -68,6 +68,7 @@ namespace Site
                 Include("~/Scripts/angular-resource.js").
                 Include("~/Scripts/angular-route.js").
                 Include("~/Scripts/angular-sanitize.min.js").
+                Include("~/Scripts/Shared/directives.js").
                 AddTo(bundles);
 
             new ScriptBundle("~/scriptbundles/main-menu").

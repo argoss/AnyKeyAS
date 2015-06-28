@@ -8,7 +8,6 @@ var RequestListCtrl = (function () {
         this.$templateCache = $templateCache;
         $scope.controller = this;
     }
-
     RequestListCtrl.prototype.init = function (configuration) {
         var _this = this;
         this.urlList = configuration;
@@ -23,12 +22,10 @@ var RequestListCtrl = (function () {
             
         });
     };
-
-    RequestListCtrl.prototype.addRequest = function () {
+    RequestListCtrl.prototype.requestAdd = function () {
         this.$scope.$parent.controller.$scope.currentItem = "Добавление заявки.";
         this.$location.path("/RequestAdd/");
     };
-
     RequestListCtrl.prototype.showRemoveDialog = function (id) {
         this.$scope.currentItem = this.$scope.items.filter(function (item) {
             return item.Id == id;
@@ -37,21 +34,20 @@ var RequestListCtrl = (function () {
             this.dialog = this.$modal.open({ template: this.$templateCache.get("requestRemoveDialog.html"), scope: this.$scope });
         }
     };
-
     RequestListCtrl.prototype.requestRemove = function () {
+        var _this = this;
         if (this.$scope.currentItem) {
-            this.$http.delete(this.$scope.currentItem.Id).then(function () {
-                var removedIndex = this.$scope.items.indexOf(this.$scope.currentItem);
-                this.$scope.items.splice(removedIndex, 1);
-                notifySuccess("Items were deleted.");
+            this.$http.delete("/api/RequestApi", { params: { id: _this.$scope.currentItem.Id } }).then(function () {
+                var removedIndex = _this.$scope.items.indexOf(_this.$scope.currentItem);
+                _this.$scope.items.splice(removedIndex, 1);
+                alert("Items were deleted.");
             }).catch(function (e) {
                 notifyError("Unable to delete item.", e);
             }).finally(function () {
-                this.closeDialog();
+                _this.closeDialog();
             });
         }
     };
-
     RequestListCtrl.prototype.closeDialog = function () {
         if (this.dialog != null) {
             this.dialog.close();
@@ -63,7 +59,7 @@ var RequestListCtrl = (function () {
 })();
 
 RequestListCtrl.$inject = ['$scope', '$modal', '$http', '$location', '$templateCache'];
-var app = getOrCreateAngularModule("anykeyApp", ['ui.bootstrap', 'ngRoute']);
+var app = getOrCreateAngularModule("anykeyApp", ['ui.bootstrap', 'ngRoute', 'anyKey.mvc']);
 
 function configFunction($httpProvider) {
     $httpProvider.defaults.cache = false;

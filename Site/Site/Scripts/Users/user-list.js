@@ -8,7 +8,6 @@ var UserListCtrl = (function () {
         this.$templateCache = $templateCache;
         $scope.controller = this;
     }
-
     UserListCtrl.prototype.init = function (configuration) {
         var _this = this;
         this.urlList = configuration;
@@ -23,17 +22,14 @@ var UserListCtrl = (function () {
 
         });
     };
-
     UserListCtrl.prototype.userEdit = function (id) {
         this.$scope.$parent.controller.$scope.currentItem = "Редактирование данных пользователя";
         this.$location.path("/UserEdit/" + id);
     };
-
     UserListCtrl.prototype.userCreate = function () {
         this.$scope.$parent.controller.$scope.currentItem = "Создание нового пользователя";
         this.$location.path("/UserAdd/");
     };
-
     UserListCtrl.prototype.showRemoveDialog = function (id) {
         this.$scope.currentItem = this.$scope.items.filter(function (item) {
             return item.Id == id;
@@ -42,21 +38,20 @@ var UserListCtrl = (function () {
             this.dialog = this.$modal.open({ template: this.$templateCache.get("userRemoveDialog.html"), scope: this.$scope });
         }
     };
-
     UserListCtrl.prototype.userRemove = function () {
+        var _this = this;
         if (this.$scope.currentItem) {
-            this.$http.delete(this.$scope.currentItem.Id).then(function () {
-                var removedIndex = this.$scope.items.indexOf(this.$scope.currentItem);
-                this.$scope.items.splice(removedIndex, 1);
-                notifySuccess("Items were deleted.");
+            this.$http.delete("/api/UserApi", { params: { id: _this.$scope.currentItem.Id } }).then(function () {
+                var removedIndex = _this.$scope.items.indexOf(_this.$scope.currentItem);
+                _this.$scope.items.splice(removedIndex, 1);
+                alert("Items were deleted.");
             }).catch(function (e) {
                 notifyError("Unable to delete item.", e);
             }).finally(function () {
-                this.closeDialog();
+                _this.closeDialog();
             });
         }
     };
-
     UserListCtrl.prototype.closeDialog = function () {
         if (this.dialog != null) {
             this.dialog.close();

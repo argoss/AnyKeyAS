@@ -1,7 +1,9 @@
 ﻿<div class="modal-body" ng-controller="RequestAddCtrl" ng-cloak x-ng-init="controller.init()">
     <div class="form-group">
         <label for="creationDate">Дата поступления</label>
-        <input type="text" id="creationDate" ng-model="request.CreationDate" class="form-control" placeholder="Иван" />
+        <div class="col-md-16">
+            <div id="creationDate" name="creationDate" date-picker="request.CreationDate"></div>
+        </div>
     </div>
     <div class="form-group">
         <label for="executionDate">Дата исполнения</label>
