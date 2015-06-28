@@ -1,9 +1,11 @@
 ﻿'use strict';
 var ClientListCtrl = (function () {
-    function ClientListCtrl($scope, $http, $location) {
+    function ClientListCtrl($scope, $modal, $http, $location, $templateCache) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$modal = $modal;
         this.$location = $location;
+        this.$templateCache = $templateCache;
         $scope.controller = this;
     }
 
@@ -22,7 +24,7 @@ var ClientListCtrl = (function () {
         });
     };
 
-    ClientListCtrl.prototype.ClientEdit = function (id) {
+    ClientListCtrl.prototype.clientEdit = function (id) {
         this.$scope.$parent.controller.$scope.currentItem = "Редактирование клиента";
         if (id == null)
             this.$location.path("/ClientEdit/");
@@ -30,11 +32,42 @@ var ClientListCtrl = (function () {
             this.$location.path("/ClientEdit/" + id);
     };
 
+    ClientListCtrl.prototype.showRemoveDialog = function (id) {
+        this.$scope.currentItem = this.$scope.items.filter(function (item) {
+            return item.Id == id;
+        })[0];
+        if (this.$scope.currentItem) {
+            this.dialog = this.$modal.open({ template: this.$templateCache.get("clientRemoveDialog.html"), scope: this.$scope });
+        }
+    };
+
+    ClientListCtrl.prototype.clientRemove = function () {
+        var _this = this;
+        if (this.$scope.currentItem) {
+            this.$http.delete("/api/ClientApi", { params: { id: _this.$scope.currentItem.Id } }).then(function () {
+                var removedIndex = _this.$scope.items.indexOf(_this.$scope.currentItem);
+                _this.$scope.items.splice(removedIndex, 1);
+                alert("Items were deleted.");
+            }).catch(function (e) {
+                notifyError("Unable to delete item.", e);
+            }).finally(function () {
+                _this.closeDialog();
+            });
+        }
+    };
+
+    ClientListCtrl.prototype.closeDialog = function () {
+        if (this.dialog != null) {
+            this.dialog.close();
+        }
+        this.$scope.currentItem = null;
+    };
+
     return ClientListCtrl;
 })();
 
-ClientListCtrl.$inject = ['$scope', '$http', '$location'];
-var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
+ClientListCtrl.$inject = ['$scope', '$modal', '$http', '$location', '$templateCache'];
+var app = getOrCreateAngularModule("anykeyApp", ['ui.bootstrap', 'ngRoute']);
 
 function configFunction($httpProvider) {
     $httpProvider.defaults.cache = false;

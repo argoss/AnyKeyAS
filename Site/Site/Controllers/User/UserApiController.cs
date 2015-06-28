@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -40,13 +41,10 @@ namespace Site.Controllers.User
             /*bool result = await _accountService.ModifyUser(model).ConfigureAwait(false);*/
         }
 
-        public async Task<UserCreateViewModel> GetCreateModel()
+        public async Task<String[]> GetRoleList()
         {
             var roles = _roleService.List();
-            return new UserCreateViewModel
-            {
-                Roles = roles.Select(x => x.Name).ToArray()
-            };
+            return roles.Select(x => x.Name).ToArray();
         }
 
         /*private async Task<bool> ModifyUser(UserItemModifyViewModel viewModel)
@@ -107,9 +105,9 @@ namespace Site.Controllers.User
         }
 
         [HttpDelete]
-        public async Task DeleteUser(string name)
+        public async Task DeleteUser(int id)
         {
-            await _accountService.DeleteUser(name);
+            await _accountService.DeleteUser(id);
         }
     }
 }

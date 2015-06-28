@@ -1,25 +1,24 @@
 ﻿'use strict';
 var UserCreateCtrl = (function () {
-    function UserCreateCtrl($scope, $http, $location, $routeParams) {
+    function UserCreateCtrl($scope, $http, $location) {
         this.$scope = $scope;
         this.$http = $http;
         this.$location = $location;
-        $scope.id = $routeParams.id;
         $scope.controller = this;
     }
 
     UserCreateCtrl.prototype.init = function () {
         var _this = this;
 
-        this.$http.get("/api/act/UserApi/GetCreateModel").then(function (args) {
-            _this.$scope.user = args.data;
+        this.$http.get("/api/act/UserApi/GetRoleList").then(function (args) {
+            _this.$scope.roles = args.data;
         }).catch(function (e) {
-            notifyError("Unable to get model.", e);
+            notifyError("Unable to get roles.", e);
         }).finally(function () {
 
         });
 
-        /*this.$scope.user = {
+        this.$scope.user = {
             UserName: "",
             FirstName: "",
             Name: "",
@@ -30,7 +29,7 @@ var UserCreateCtrl = (function () {
             Email: "",
             Phone: "",
             Roles: []
-        };*/
+        };
     };
 
     UserCreateCtrl.prototype.addUser = function () {
@@ -48,7 +47,7 @@ var UserCreateCtrl = (function () {
     return UserCreateCtrl;
 })();
 
-UserCreateCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+UserCreateCtrl.$inject = ['$scope', '$http', '$location'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {

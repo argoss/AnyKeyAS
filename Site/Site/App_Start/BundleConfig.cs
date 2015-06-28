@@ -52,7 +52,7 @@ namespace Site
 				Include("~/Scripts/bootstrap.js").
 				Include("~/Scripts/bootstrap.validate.js").
 				Include("~/Scripts/bootstrap-datepicker.js").
-				Include("~/Scripts/bootstrap-notify.js").
+                Include("~/Scripts/bootstrap-notify.js").
                 AddTo(BundleTable.Bundles);
 
             new StyleBundle("~/stylebundles/bootstrap").
@@ -71,6 +71,8 @@ namespace Site
                 AddTo(bundles);
 
             new ScriptBundle("~/scriptbundles/main-menu").
+                Include("~/Scripts/angular-ui/ui-bootstrap.js").
+                Include("~/Scripts/angular-ui/ui-bootstrap-tpls.js").
                 Include("~/Scripts/Shared/common-tools.js").
                 Include("~/Scripts/MainMenu/main-menu.js").
                 Include("~/Scripts/Users/user-list.js").

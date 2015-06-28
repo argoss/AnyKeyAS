@@ -91,9 +91,9 @@ namespace Servicing.Account
             return GetResult(await _userManager.ResetPasswordAsync(user.Id, token, newPassword).ConfigureAwait(false));
         }
 
-        public async Task<bool> DeleteUser(string userName)
+        public async Task<bool> DeleteUser(int id)
         {
-            var user = await _userManager.FindByNameAsync(userName).ConfigureAwait(false);
+            var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
 
             if (user == null)
             {

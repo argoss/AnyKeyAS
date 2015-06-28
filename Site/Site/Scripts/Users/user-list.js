@@ -1,9 +1,11 @@
 ﻿'use strict';
 var UserListCtrl = (function () {
-    function UserListCtrl($scope, $http, $location) {
+    function UserListCtrl($scope, $modal, $http, $location, $templateCache) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$modal = $modal;
         this.$location = $location;
+        this.$templateCache = $templateCache;
         $scope.controller = this;
     }
 
@@ -22,21 +24,51 @@ var UserListCtrl = (function () {
         });
     };
 
-    UserListCtrl.prototype.UserEdit = function (id) {
+    UserListCtrl.prototype.userEdit = function (id) {
         this.$scope.$parent.controller.$scope.currentItem = "Редактирование данных пользователя";
         this.$location.path("/UserEdit/" + id);
     };
 
-    UserListCtrl.prototype.UserCreate = function () {
+    UserListCtrl.prototype.userCreate = function () {
         this.$scope.$parent.controller.$scope.currentItem = "Создание нового пользователя";
         this.$location.path("/UserAdd/");
+    };
+
+    UserListCtrl.prototype.showRemoveDialog = function (id) {
+        this.$scope.currentItem = this.$scope.items.filter(function (item) {
+            return item.Id == id;
+        })[0];
+        if (this.$scope.currentItem) {
+            this.dialog = this.$modal.open({ template: this.$templateCache.get("userRemoveDialog.html"), scope: this.$scope });
+        }
+    };
+
+    UserListCtrl.prototype.userRemove = function () {
+        if (this.$scope.currentItem) {
+            this.$http.delete(this.$scope.currentItem.Id).then(function () {
+                var removedIndex = this.$scope.items.indexOf(this.$scope.currentItem);
+                this.$scope.items.splice(removedIndex, 1);
+                notifySuccess("Items were deleted.");
+            }).catch(function (e) {
+                notifyError("Unable to delete item.", e);
+            }).finally(function () {
+                this.closeDialog();
+            });
+        }
+    };
+
+    UserListCtrl.prototype.closeDialog = function () {
+        if (this.dialog != null) {
+            this.dialog.close();
+        }
+        this.$scope.currentItem = null;
     };
 
     return UserListCtrl;
 })();
 
-UserListCtrl.$inject = ['$scope', '$http', '$location'];
-var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
+UserListCtrl.$inject = ['$scope', '$modal', '$http', '$location', '$templateCache'];
+var app = getOrCreateAngularModule("anykeyApp", ['ui.bootstrap', 'ngRoute']);
 
 function configFunction($httpProvider) {
     $httpProvider.defaults.cache = false;

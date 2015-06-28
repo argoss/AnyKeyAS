@@ -1,9 +1,11 @@
 ﻿'use strict';
 var RequestListCtrl = (function () {
-    function RequestListCtrl($scope, $http, $location) {
+    function RequestListCtrl($scope, $modal, $http, $location, $templateCache) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$modal = $modal;
         this.$location = $location;
+        this.$templateCache = $templateCache;
         $scope.controller = this;
     }
 
@@ -22,16 +24,46 @@ var RequestListCtrl = (function () {
         });
     };
 
-    RequestListCtrl.prototype.AddRequest = function () {
+    RequestListCtrl.prototype.addRequest = function () {
         this.$scope.$parent.controller.$scope.currentItem = "Добавление заявки.";
         this.$location.path("/RequestAdd/");
+    };
+
+    RequestListCtrl.prototype.showRemoveDialog = function (id) {
+        this.$scope.currentItem = this.$scope.items.filter(function (item) {
+            return item.Id == id;
+        })[0];
+        if (this.$scope.currentItem) {
+            this.dialog = this.$modal.open({ template: this.$templateCache.get("requestRemoveDialog.html"), scope: this.$scope });
+        }
+    };
+
+    RequestListCtrl.prototype.requestRemove = function () {
+        if (this.$scope.currentItem) {
+            this.$http.delete(this.$scope.currentItem.Id).then(function () {
+                var removedIndex = this.$scope.items.indexOf(this.$scope.currentItem);
+                this.$scope.items.splice(removedIndex, 1);
+                notifySuccess("Items were deleted.");
+            }).catch(function (e) {
+                notifyError("Unable to delete item.", e);
+            }).finally(function () {
+                this.closeDialog();
+            });
+        }
+    };
+
+    RequestListCtrl.prototype.closeDialog = function () {
+        if (this.dialog != null) {
+            this.dialog.close();
+        }
+        this.$scope.currentItem = null;
     };
 
     return RequestListCtrl;
 })();
 
-RequestListCtrl.$inject = ['$scope', '$http', '$location'];
-var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
+RequestListCtrl.$inject = ['$scope', '$modal', '$http', '$location', '$templateCache'];
+var app = getOrCreateAngularModule("anykeyApp", ['ui.bootstrap', 'ngRoute']);
 
 function configFunction($httpProvider) {
     $httpProvider.defaults.cache = false;
