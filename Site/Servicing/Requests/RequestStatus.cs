@@ -3,6 +3,7 @@
     public enum RequestStatus
     {
         Appointed,
-        Performed
+        Performed,
+        Сomplete
     }
 }

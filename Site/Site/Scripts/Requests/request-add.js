@@ -9,10 +9,18 @@ var RequestAddCtrl = (function () {
     RequestAddCtrl.prototype.init = function () {
         var _this = this;
         this.$scope.request = {};
+        this.$scope.clients = [];
+
+        this.$http.get("/api/act/ClientApi/GetClients").then(function (args) {
+            _this.$scope.clients = args.data.List;
+            notifySuccess("Items were loaded.");
+        }).catch(function (e) {
+            notifyError("Unable to get items.", e);
+        });
     };
 
     RequestAddCtrl.prototype.save = function () {
-        this.$http.post("/api/RequestApi", this.$scope.client).catch(function (e) {
+        this.$http.post("/api/RequestApi", this.$scope.request).catch(function (e) {
             notifyError("Error saving model.", e);
         });
     };

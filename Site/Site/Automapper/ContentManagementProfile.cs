@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Servicing.Account;
 using Servicing.Clients;
 using Servicing.Requests;
@@ -16,8 +17,10 @@ namespace Site.Automapper
             Mapper.CreateMap<ClientModel, ClientViewModel>();
             Mapper.CreateMap<ClientViewModel, ClientModel>();
 
-            Mapper.CreateMap<RequestModel, RequestViewModel>();
-            Mapper.CreateMap<RequestViewModel, RequestModel>();
+            Mapper.CreateMap<RequestModel, RequestViewModel>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+            Mapper.CreateMap<RequestViewModel, RequestModel>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse(typeof(RequestStatus), src.Status)));
 
             Mapper.CreateMap<UserEditModel, UserViewModel>();
             Mapper.CreateMap<UserViewModel, UserEditModel>();

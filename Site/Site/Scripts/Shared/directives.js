@@ -47,13 +47,7 @@ function datePickerFactory() {
             utcModel: '=datePicker'
         },
         controller: datePickerController,
-        template: '<div class="input-group">\
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="localModel" is-open="opened" ng-change="changed()" close-text="Close" ng-click="open($event)" />\
-                <span class="input-group-btn">\
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>\
-				<button type="button" class="btn btn-danger" ng-click="clear()">Clear</button >\
-                </span>\
-                </div>'
+        template: '<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="localModel" is-open="opened" ng-change="changed()" close-text="Close" ng-click="open($event)" />'
     };
 }
 

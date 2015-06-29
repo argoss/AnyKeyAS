@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Servicing.Data;
 using Servicing.Requests;
+using Site.Models.Clients;
 
 namespace Site.Models.Requests
 {
@@ -25,8 +27,8 @@ namespace Site.Models.Requests
         public DateTime ExecutionDate { get; set; }
 
         [Required]
-        public RequestStatus Status { get; set; }
+        public string Status { get; set; }
 
-        public string ClientName { get; set; }
+        public ClientViewModel Client { get; set; }
     }
 }

@@ -35,16 +35,26 @@ namespace Servicing.Requests
         {
             using (var dc = new AnykeyDbCntext())
             {
+                var client = await dc.Clients.FirstOrDefaultAsync(x => x.Id == model.ClientId).ConfigureAwait(false);
+                if (client == null)
+                {
+                    throw new ArgumentException("Unknown client id");
+                }
                 var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id == model.Id).ConfigureAwait(false);
                 if (item == null)
                 {
-                    item = new Request();
+                    item = ToDb(model);
+                    item.Client = client;
                     dc.Requests.Add(item);
                 }
-
-                item.CreationDate = model.CreationDate;
-                item.ExecutionDate = model.ExecutionDate;
-
+                else
+                {
+                    item.CreationDate = model.CreationDate;
+                    item.ExecutionDate = model.ExecutionDate;
+                    item.Status = model.Status;
+                    item.Client = client;
+                }
+                
                 await dc.SaveChangesAsync().ConfigureAwait(false);
             }
         }
@@ -68,9 +78,10 @@ namespace Servicing.Requests
         {
             return new Request
             {
-                Id = model.Id,
+                //Id = model.Id,
                 CreationDate = model.CreationDate,
                 ExecutionDate = model.ExecutionDate,
+                Status = model.Status,
             };
         }
 
@@ -78,10 +89,11 @@ namespace Servicing.Requests
         {
             return new RequestModel
             {
-                Id = item.Id,
+                //Id = item.Id,
                 CreationDate = item.CreationDate,
                 ExecutionDate = item.ExecutionDate,
-                ClientName = item.Client.Dot(x => x.Name)
+                Status = item.Status,
+                ClientId = item.Client.Id
             };
         }
     }
