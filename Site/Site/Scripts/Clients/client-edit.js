@@ -23,8 +23,9 @@ var ClientEditCtrl = (function () {
     };
 
     ClientEditCtrl.prototype.save = function () {
+        var _this = this;
         this.$http.post("/api/ClientApi", this.$scope.client).then(function () {
-            this.$location.path("");
+            _this.$location.path("");
         }).catch(function (e) {
             notifyError("Error saving model.", e);
         });

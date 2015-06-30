@@ -89,11 +89,12 @@ namespace Servicing.Requests
         {
             return new RequestModel
             {
-                //Id = item.Id,
+                Id = item.Id,
                 CreationDate = item.CreationDate,
                 ExecutionDate = item.ExecutionDate,
                 Status = item.Status,
-                ClientId = item.Client.Id
+                ClientId = item.Client.Id,
+                ClientName = item.Client.Name
             };
         }
     }

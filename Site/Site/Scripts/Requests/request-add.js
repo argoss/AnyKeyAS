@@ -1,8 +1,9 @@
 ﻿'use strict';
 var RequestAddCtrl = (function () {
-    function RequestAddCtrl($scope, $http) {
+    function RequestAddCtrl($scope, $http, $location) {
         this.$scope = $scope;
         this.$http = $http;
+        this.$location = $location;
         $scope.controller = this;
     }
 
@@ -20,8 +21,11 @@ var RequestAddCtrl = (function () {
     };
 
     RequestAddCtrl.prototype.save = function () {
+        var _this = this;
         this.$http.post("/api/RequestApi", this.$scope.request).catch(function (e) {
             notifyError("Error saving model.", e);
+        }).finally(function () {
+            _this.$location.path("");
         });
     };
 
@@ -32,7 +36,7 @@ var RequestAddCtrl = (function () {
     return RequestAddCtrl;
 })();
 
-RequestAddCtrl.$inject = ['$scope', '$http'];
+RequestAddCtrl.$inject = ['$scope', '$http', '$location'];
 var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
@@ -43,3 +47,14 @@ configFunction.$inject = ['$httpProvider'];
 
 app.config(configFunction);
 app.controller('RequestAddCtrl', RequestAddCtrl);
+
+app.config([
+    '$routeProvider',
+    function ($routeProvider) {
+        $routeProvider.when('/Requests', {
+            templateUrl: 'Requests.html',
+            controller: RequestListCtrl
+        })
+        .otherwise({ templateUrl: 'Requests.html', controller: RequestListCtrl });
+    }
+]);

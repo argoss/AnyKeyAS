@@ -13,5 +13,7 @@ namespace Servicing.Requests
         public RequestStatus Status { get; set; }
 
         public int ClientId { get; set; }
+
+        public string ClientName { get; set; }
     }
 }

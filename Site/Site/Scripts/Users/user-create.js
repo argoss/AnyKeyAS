@@ -32,9 +32,10 @@ var UserCreateCtrl = (function () {
         };
     };
 
-    UserCreateCtrl.prototype.addUser = function () {
+    UserCreateCtrl.prototype.save = function () {
+        var _this = this;
         this.$http.post("/api/act/UserApi/Create", this.$scope.user).then(function () {
-            this.$location.path("");
+            _this.$location.path("");
         }).catch(function (e) {
             notifyError("Error saving model.", e);
         });

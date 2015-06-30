@@ -75,8 +75,8 @@ app.config([
     function ($routeProvider) {
         $routeProvider.when('/RequestAdd/', {
             templateUrl: 'RequestAdd.html',
-            controller: RequestListCtrl
+            controller: RequestAddCtrl
         })
-        .otherwise({ templateUrl: 'RequestAdd.html', controller: RequestListCtrl });
+        .otherwise({ templateUrl: 'RequestAdd.html', controller: RequestAddCtrl });
     }
 ]);
