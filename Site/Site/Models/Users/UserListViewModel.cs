@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Site.Models.Users
 {
@@ -14,7 +15,7 @@ namespace Site.Models.Users
 
     public class UserViewModel
     {
-        private string[] _roles = new string[0];
+        public string Id { get; set; }
 
         [Required]
         public string UserName { get; set; }
@@ -34,24 +35,21 @@ namespace Site.Models.Users
         [Required]
         public string Phone { get; set; }
 
-        public string[] Roles
-        {
-            get { return _roles; }
-            set { _roles = value ?? new string[0]; }
-        }
+        [Required]
+        public string Role { get; set; }
     }
 
     public class UserCreateViewModel : UserViewModel
     {
         [Required]
-        //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        //[DataType(DataType.Password)]
-        //[Display(Name = "Password")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
-        //[DataType(DataType.Password)]
-        //[Display(Name = "Confirm password")]
-        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 }

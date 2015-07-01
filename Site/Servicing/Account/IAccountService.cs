@@ -17,7 +17,7 @@ namespace Servicing.Account
 
         Task<AccountServiceResult> ResetPassword(string userName, string token, string newPassword);
 
-        Task<bool> DeleteUser(int id);
+        Task<bool> DeleteUser(string id);
 
         Task<AccountServiceResult> ValidatePassword(string password);
 

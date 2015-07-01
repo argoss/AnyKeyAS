@@ -12,6 +12,10 @@ var MainMenuCtrl = (function () {
         _this.$scope.currentItem = "";
     }
 
+    /*MainMenuCtrl.prototype.Services = function () {
+        
+    };*/
+
     MainMenuCtrl.prototype.UserList = function () {
         this.$scope.currentItem = "Пользователи";
         this.$location.path("/Users");
@@ -51,6 +55,9 @@ app.config([
         }).when('/Clients', {
             templateUrl: 'Clients.html',
             controller: ClientListCtrl
+        }).when('/Service', {
+            templateUrl: 'Service.html',
+            controller: ServiceCtrl
         });
     }
 ]);

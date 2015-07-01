@@ -14,8 +14,6 @@ var UserCreateCtrl = (function () {
             _this.$scope.roles = args.data;
         }).catch(function (e) {
             notifyError("Unable to get roles.", e);
-        }).finally(function () {
-
         });
 
         this.$scope.user = {
@@ -38,6 +36,8 @@ var UserCreateCtrl = (function () {
             _this.$location.path("");
         }).catch(function (e) {
             notifyError("Error saving model.", e);
+        }).finally(function () {
+            this.$location.path("");
         });
     };
 

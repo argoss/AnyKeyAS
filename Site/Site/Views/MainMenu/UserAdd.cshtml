@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
         <label for="name">Имя</label>
-        <input type="text" id="name" ng-model="user.Name" class="form-control" placeholder="Иван" />
+        <input type="text" id="name" ng-model="user.FirstName" class="form-control" placeholder="Иван" />
     </div>
     <div class="form-group">
         <label for="patronymic">Отчество</label>
@@ -25,11 +25,15 @@
     </div>
     <div class="form-group">
         <label for="roles">Должность</label>
-        <select id="roles" class="form-control" ng-model="user.Roles" ng-options="role for role in roles"></select>
+        <select id="roles" class="form-control" ng-model="user.Role" ng-options="role for role in roles"></select>
     </div>
     <div class="form-group">
-        <label for="contacts">Контакты</label>
-        <input type="text" id="contacts" ng-model="user.Contacts" class="form-control" placeholder="8914-999-99-99" />
+        <label for="contacts">Электронная почта</label>
+        <input type="text" id="contacts" ng-model="user.Email" class="form-control" placeholder="email@Mail.ru" />
+    </div>
+    <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input type="text" id="phone" ng-model="user.Phone" class="form-control" placeholder="8914-999-99-99" />
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="controller.cancel()">Cancel</button>

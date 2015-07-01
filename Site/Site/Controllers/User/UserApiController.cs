@@ -24,7 +24,7 @@ namespace Site.Controllers.User
         public UserApiController(IAccountService accountService, IRoleService roleService)
         {
             _roleService = roleService;
-            _accountService = accountService ?? new AccountService();
+            _accountService = accountService ?? new AccountService(new RoleService());
         }
 
         [HttpPost]
@@ -35,10 +35,11 @@ namespace Site.Controllers.User
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Passwords mismatch");
             }
             var result = await _accountService.CreateUser(model.UserName, model.Password).ConfigureAwait(false);
+            if (!result.IsSuccess)
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, false);
+            result = await _accountService.ModifyUser(Mapper.Map<UserCreateViewModel, UserCreateModel>(model)).ConfigureAwait(false);
 
             return Request.CreateResponse(result.IsSuccess ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
-
-            /*bool result = await _accountService.ModifyUser(model).ConfigureAwait(false);*/
         }
 
         public async Task<String[]> GetRoleList()
@@ -105,7 +106,7 @@ namespace Site.Controllers.User
         }
 
         [HttpDelete]
-        public async Task DeleteUser(int id)
+        public async Task DeleteUser(string id)
         {
             await _accountService.DeleteUser(id);
         }

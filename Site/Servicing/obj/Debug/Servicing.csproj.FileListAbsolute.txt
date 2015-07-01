@@ -89,8 +89,8 @@ C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\System.Web.Razor.xml
 C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\System.Web.WebPages.xml
 C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.csprojResolveAssemblyReference.cache
 C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.dll
 C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.pdb
 C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\JetBrains.Annotations.dll
 C:\Repository\AnyKeyAS\Site\Servicing\bin\Debug\JetBrains.Annotations.xml
+C:\Repository\AnyKeyAS\Site\Servicing\obj\Debug\Servicing.csprojResolveAssemblyReference.cache

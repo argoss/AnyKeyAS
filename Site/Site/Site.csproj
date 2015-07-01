@@ -331,6 +331,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Clients\client-edit.js" />
     <Content Include="Scripts\Clients\client-list.js" />
+    <Content Include="Scripts\Service\service.js" />
     <Content Include="Scripts\Shared\directives.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1211,6 +1212,7 @@
     <Content Include="Views\MainMenu\UserEdit.cshtml" />
     <Content Include="Views\MainMenu\RequestAdd.cshtml" />
     <Content Include="Views\MainMenu\UserAdd.cshtml" />
+    <Content Include="Views\Service\Service.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,8 +1,10 @@
-﻿namespace Servicing.Account
+﻿using System;
+
+namespace Servicing.Account
 {
     public class UserEditModel
     {
-        private string[] _roles = new string[0];
+        public string Id { get; set; }
 
         public string UserName { get; set; }
 
@@ -12,17 +14,11 @@
 
         public string Patronymic { get; set; }
 
-        public string Position { get; set; }
-
         public string Email { get; set; }
 
         public string Phone { get; set; }
 
-        public string[] Roles
-        {
-            get { return _roles; }
-            set { _roles = value ?? new string[0]; }
-        }
+        public string Role { get; set; }
     }
 
     public class UserCreateModel : UserEditModel

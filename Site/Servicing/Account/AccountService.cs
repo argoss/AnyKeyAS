@@ -8,15 +8,18 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Servicing.Data;
+using Servicing.Roles;
 
 namespace Servicing.Account
 {
     public class AccountService : IAccountService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IRoleService _roleService;
 
-        public AccountService()
+        public AccountService(IRoleService roleService)
         {
+            _roleService = roleService;
             _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new AnykeyDbCntext()))
             {
                 PasswordHasher = new SqlPasswordHasher()
@@ -52,9 +55,11 @@ namespace Servicing.Account
 				user.FirstName = model.FirstName;
 				user.LastName = model.LastName;
 			    user.Patronymic = model.Patronymic;
-			    user.Position = model.Position;
 				user.Email = model.Email;
 				user.PhoneNumber = model.Phone;
+
+			    //user.Roles = new IdentityUserRole[] {_roleService.GetByName(model.Role)};
+
                 await _userManager.UpdateAsync(user).ConfigureAwait(false);
                 return new AccountServiceResult {IsSuccess = true};
             }
@@ -91,7 +96,7 @@ namespace Servicing.Account
             return GetResult(await _userManager.ResetPasswordAsync(user.Id, token, newPassword).ConfigureAwait(false));
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> DeleteUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
 
@@ -190,10 +195,9 @@ namespace Servicing.Account
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Patronymic = user.Patronymic,
-                Position = user.Position,
                 Email = user.Email,
                 Phone = user.PhoneNumber,
-                Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
+                Role = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).FirstOrDefault()
             };
         }
 
@@ -209,10 +213,9 @@ namespace Servicing.Account
 				FirstName = user.FirstName,
 				LastName = user.LastName,
                 Patronymic = user.Patronymic,
-                Position = user.Position,
 				Email = user.Email,
 				Phone = user.PhoneNumber,
-				Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
+                Role = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).FirstOrDefault()
 			};
         }
 
@@ -229,14 +232,14 @@ namespace Servicing.Account
         {
             return new UserEditModel
             {
+                Id = item.Id,
                 FirstName = item.FirstName,
                 LastName = item.LastName,
                 Patronymic = item.Patronymic,
                 UserName = item.UserName,
-                Position = item.Position,
                 Email = item.Email,
                 Phone = item.Email,
-                Roles = (_userManager.GetRolesAsync(item.Id).Result).ToArray()
+                Role = (_userManager.GetRolesAsync(item.Id).Result).FirstOrDefault()
             };
         }
 
