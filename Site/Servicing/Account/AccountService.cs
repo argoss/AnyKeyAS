@@ -57,8 +57,7 @@ namespace Servicing.Account
 			    user.Patronymic = model.Patronymic;
 				user.Email = model.Email;
 				user.PhoneNumber = model.Phone;
-
-			    //user.Roles = new IdentityUserRole[] {_roleService.GetByName(model.Role)};
+			    //user.Roles = new IdentityUserRole[] {_roleService.GetByName(model.Roles)};
 
                 await _userManager.UpdateAsync(user).ConfigureAwait(false);
                 return new AccountServiceResult {IsSuccess = true};
@@ -197,7 +196,7 @@ namespace Servicing.Account
                 Patronymic = user.Patronymic,
                 Email = user.Email,
                 Phone = user.PhoneNumber,
-                Role = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).FirstOrDefault()
+                Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
             };
         }
 
@@ -215,7 +214,7 @@ namespace Servicing.Account
                 Patronymic = user.Patronymic,
 				Email = user.Email,
 				Phone = user.PhoneNumber,
-                Role = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).FirstOrDefault()
+                Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
 			};
         }
 
@@ -239,7 +238,7 @@ namespace Servicing.Account
                 UserName = item.UserName,
                 Email = item.Email,
                 Phone = item.Email,
-                Role = (_userManager.GetRolesAsync(item.Id).Result).FirstOrDefault()
+                Roles = (_userManager.GetRolesAsync(item.Id).Result).ToArray()
             };
         }
 

@@ -20,7 +20,7 @@ namespace Servicing.Roles
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Name can't be null, empty or contain only whitespaces");
             if (_manager.RoleExists(name))
-                throw new ArgumentException("Role with the same name already exists");
+                throw new ArgumentException("Roles with the same name already exists");
 
             //var taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
             //TaskExtensions.Unwrap(taskFactory.StartNew<Task>(() => _manager.CreateAsync(new IdentityRole(name)))).GetAwaiter().GetResult();
@@ -35,7 +35,7 @@ namespace Servicing.Roles
                 foreach (var identityRole in roles)
                 {
                     if (identityRole.Users.Count != 0)
-                        throw new InvalidOperationException(string.Format("Role '{0}' is not empty.", identityRole.Name));
+                        throw new InvalidOperationException(string.Format("Roles '{0}' is not empty.", identityRole.Name));
                     _manager.Delete(identityRole);
                 }
                 await dc.SaveChangesAsync().ConfigureAwait(false);

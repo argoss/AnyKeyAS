@@ -55,9 +55,9 @@ app.config([
         }).when('/Clients', {
             templateUrl: 'Clients.html',
             controller: ClientListCtrl
-        }).when('/Service', {
+        })/*.when('/Service', {
             templateUrl: 'Service.html',
             controller: ServiceCtrl
-        });
+        })*/;
     }
 ]);

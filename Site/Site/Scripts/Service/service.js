@@ -1,4 +1,4 @@
-﻿'use strict';
+﻿/*'use strict';
 var ServiceCtrl = (function () {
     function ServiceCtrl($scope, $http, $location) {
         this.$scope = $scope;
@@ -32,4 +32,4 @@ app.config([
             controller: UserListCtrl
         });
     }
-]);
+]);*/

@@ -15,6 +15,8 @@ namespace Site.Models.Users
 
     public class UserViewModel
     {
+        private string[] _roleses = new string[0];
+
         public string Id { get; set; }
 
         [Required]
@@ -36,7 +38,11 @@ namespace Site.Models.Users
         public string Phone { get; set; }
 
         [Required]
-        public string Role { get; set; }
+        public string[] Roles
+        {
+            get { return _roleses; }
+            set { _roleses = value ?? new string[0]; }
+        }
     }
 
     public class UserCreateViewModel : UserViewModel
