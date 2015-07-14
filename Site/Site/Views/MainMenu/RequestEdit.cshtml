@@ -1,0 +1,22 @@
+﻿<div class="modal-body" ng-controller="RequestEditCtrl" ng-cloak x-ng-init="controller.init()">
+    <div class="form-group">
+        <label for="creationDate">Дата поступления</label>
+        <div id="creationDate" name="creationDate" date-picker="request.CreationDate"></div>
+    </div>
+    <div class="form-group">
+        <label for="executionDate">Дата исполнения</label>
+        <div id="executionDate" name="executionDate" date-picker="request.ExecutionDate"></div>
+    </div>
+    <div class="form-group">
+        <label for="status">Статус</label>
+        <input type="text" id="status" ng-model="request.Status" class="form-control" placeholder="Статус" />
+    </div>
+    <div class="form-group">
+        <label for="client">Клиент</label>
+        <select id="client" ng-model="request.ClientId" ng-options="client.Id as client.ShortName for client in clients" class="form-control" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="controller.cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="controller.save()">Save</button>
+    </div>
+</div>

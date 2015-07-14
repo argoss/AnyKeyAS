@@ -83,6 +83,7 @@ namespace Site
                 Include("~/Scripts/Users/user-edit.js").
                 Include("~/Scripts/Users/user-create.js").
                 Include("~/Scripts/Requests/request-add.js").
+                Include("~/Scripts/Requests/request-edit.js").
                 AddTo(bundles);
 
            /* new ScriptBundle("~/scriptbundles/user-list").

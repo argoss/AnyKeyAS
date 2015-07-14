@@ -23,6 +23,14 @@ namespace Site.Controllers.Requests
             return new RequestListViewModel { List = Mapper.Map<RequestModel[], RequestViewModel[]>(model) };
         }
 
+        [HttpGet]
+        public async Task<RequestViewModel> GetRequest(int id)
+        {
+            var model = await _requestService.GetRequest(id);
+
+            return Mapper.Map<RequestModel, RequestViewModel>(model);
+        }
+
         [HttpPost]
         public async Task AddRequest(RequestViewModel model)
         {

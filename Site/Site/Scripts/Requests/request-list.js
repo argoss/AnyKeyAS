@@ -22,9 +22,13 @@ var RequestListCtrl = (function () {
             
         });
     };
-    RequestListCtrl.prototype.requestAdd = function () {
+    RequestListCtrl.prototype.requestAdd = function() {
         this.$scope.$parent.controller.$scope.currentItem = "Добавление заявки.";
         this.$location.path("/RequestAdd/");
+    };
+    RequestListCtrl.prototype.requestEdit = function (id) {
+        this.$scope.$parent.controller.$scope.currentItem = "Редактирование заявки.";
+        this.$location.path("/RequestEdit/" + id);
     };
     RequestListCtrl.prototype.showRemoveDialog = function (id) {
         this.$scope.currentItem = this.$scope.items.filter(function (item) {
@@ -76,6 +80,9 @@ app.config([
         $routeProvider.when('/RequestAdd/', {
             templateUrl: 'RequestAdd.html',
             controller: RequestAddCtrl
+        }).when('/RequestEdit/:id', {
+            templateUrl: 'RequestEdit.html',
+            controller: RequestEditCtrl
         })
         .otherwise({ templateUrl: 'RequestAdd.html', controller: RequestAddCtrl });
     }
