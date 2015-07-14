@@ -8,8 +8,9 @@ var UserCreateCtrl = (function () {
     }
 
     UserCreateCtrl.prototype.init = function () {
+        this.$scope.slideUp = false;
         var _this = this;
-        this.$scope.roles = { userRole: [] }
+        this.$scope.roles = { }
 
         this.$http.get("/api/act/UserApi/GetRoleList").then(function (args) {
             _this.$scope.roles = args.data;
@@ -57,6 +58,16 @@ var UserCreateCtrl = (function () {
 
     UserCreateCtrl.prototype.cancel = function () {
         this.$location.path("");
+    }
+
+    UserCreateCtrl.prototype.slideUpDown = function () {
+        if (!this.$scope.slideUp) {
+            $(".rolesBlock").slideUp();
+            this.$scope.slideUp = true;
+        } else {
+            $(".rolesBlock").slideDown();
+            this.$scope.slideUp = false;
+        }
     }
 
     return UserCreateCtrl;

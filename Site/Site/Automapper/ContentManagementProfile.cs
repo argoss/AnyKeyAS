@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using Servicing.Account;
 using Servicing.Clients;
@@ -24,14 +25,16 @@ namespace Site.Automapper
 
             Mapper.CreateMap<UserEditModel, UserEditViewModel>()
                 .ForMember(dest => dest.Roles, opt => opt.Ignore());
-            Mapper.CreateMap<UserEditViewModel, UserEditModel>();
+            Mapper.CreateMap<UserEditViewModel, UserEditModel>()
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles.Where(x => x.Flag).Select(x => x.Name)));
 
             Mapper.CreateMap<UserEditModel, UserViewModel>()
                 .ForMember(dest => dest.Roles, opt => opt.Ignore());
             Mapper.CreateMap<UserViewModel, UserEditModel>();
 
             Mapper.CreateMap<UserCreateModel, UserCreateViewModel>();
-            Mapper.CreateMap<UserCreateViewModel, UserCreateModel>();
+            Mapper.CreateMap<UserCreateViewModel, UserCreateModel>()
+                .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles.Where(x => x.Flag).Select(x => x.Name)));
 
             /*Mapper.CreateMap<PageHistoryItemModel, PageHistoryItemViewModel>().
                 ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PageId));

@@ -43,10 +43,14 @@ namespace Site.Controllers.User
             return Request.CreateResponse(result.IsSuccess ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
         }
 
-        public async Task<String[]> GetRoleList()
+        public async Task<UserRoles[]> GetRoleList()
         {
-            var roles = _roleService.List();
-            return roles.Select(x => x.Name).ToArray();
+            var list = _roleService.List().Select(x => new UserRoles
+            {
+                Flag = false,
+                Name = x.Name
+            }).ToArray();
+            return list;
         }
 
         [HttpGet]
@@ -62,23 +66,22 @@ namespace Site.Controllers.User
         {
             var item = await _accountService.GetUserById(id.ToString());
 
+            var model = Mapper.Map<UserEditModel, UserEditViewModel>(item);
+
             var roles = _roleService.List();
-            var userRoleModel = roles.Select(x => new UserRoles
+            model.Roles = roles.Select(x => new UserRoles
             {
                 Flag = item.Roles.Contains(x.Name),
                 Name = x.Name
             }).ToArray();
 
-            var model = Mapper.Map<UserEditModel, UserEditViewModel>(item);
-            model.Roles = userRoleModel;
-
             return model;
         }
 
         [HttpPost]
-        public async Task<HttpResponseMessage> Edit(UserCreateViewModel model)
+        public async Task<HttpResponseMessage> Edit(UserEditViewModel model)
         {
-            var result = await _accountService.ModifyUser(Mapper.Map<UserCreateViewModel, UserCreateModel>(model)).ConfigureAwait(false);
+            var result = await _accountService.ModifyUser(Mapper.Map<UserEditViewModel, UserEditModel>(model)).ConfigureAwait(false);
             
             return Request.CreateResponse(result.IsSuccess ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
         }

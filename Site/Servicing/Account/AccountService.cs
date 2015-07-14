@@ -58,7 +58,20 @@ namespace Servicing.Account
 				user.Email = model.Email;
 				user.PhoneNumber = model.Phone;
 			    user.Position = model.Position;
-			    //user.Roles = new IdentityUserRole[] {_roleService.GetByName(model.Roles)};
+			    user.PhoneNumber = model.Phone;
+
+                user.Roles.Clear();
+                foreach (var userRole in model.Roles)
+                {
+                    var role = _roleService.GetByName(userRole);
+                    if (role == null)
+                        continue;
+                    user.Roles.Add(new IdentityUserRole
+                    {
+                        RoleId = role.Id,
+                        UserId = user.Id
+                    });
+                }
 
                 await _userManager.UpdateAsync(user).ConfigureAwait(false);
                 return new AccountServiceResult {IsSuccess = true};
