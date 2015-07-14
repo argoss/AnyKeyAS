@@ -12,7 +12,7 @@ var ClientEditCtrl = (function () {
         var _this = this;
         this.$scope.client = {};
 
-        this.$http.get("/api/act/ClientApi/GetClient", { params: { id: this.id } }).then(function (args) {
+        this.$http.get("/api/act/ClientApi/GetClient", { params: { id: _this.$scope.id } }).then(function (args) {
             _this.$scope.client = args.data;
             notifySuccess("Item were loaded.");
         }).catch(function (e) {
@@ -24,7 +24,7 @@ var ClientEditCtrl = (function () {
 
     ClientEditCtrl.prototype.save = function () {
         var _this = this;
-        this.$http.post("/api/ClientApi", this.$scope.client).then(function () {
+        this.$http.post("/api/ClientApi", _this.$scope.client).then(function () {
             _this.$location.path("");
         }).catch(function (e) {
             notifyError("Error saving model.", e);

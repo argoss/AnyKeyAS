@@ -41,13 +41,13 @@ namespace Servicing.Clients
                 }
                 else
                 {
-                    item = ToDb(model);
+                    //item = ToDb(model);
 
-                    /*item.Name = model.Name;
+                    item.Name = model.Name;
                     item.OwnPhone = model.OwnPhone;
                     item.WorkPhone = model.WorkPhone;
                     item.ShortName = model.ShortName;
-                    item.Address = model.Address;*/
+                    item.Address = model.Address;
                 }
 
                 await dc.SaveChangesAsync().ConfigureAwait(false);
