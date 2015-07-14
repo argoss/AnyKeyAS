@@ -1,1 +1,18 @@
-﻿
+﻿@using Servicing.Requests
+@model Site.Models.Service.ServiceListViewModel
+           
+@{
+    var statuses = (from RequestStatus suit in Enum.GetValues(typeof (RequestStatus)) select suit.ToString()).ToList();
+}
+           
+<div class="row">
+    <div class="input-group">
+        @foreach (var statusBtn in statuses)
+        {
+            <button type="button" class="btn btn-primary col-md-1">statusBtn</button>
+        }
+    </div>
+    <div>
+        
+    </div>
+</div>

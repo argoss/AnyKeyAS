@@ -224,6 +224,7 @@
     <Compile Include="Models\MainMenu\MainMenuApiConfig.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Requests\RequestListViewModel.cs" />
+    <Compile Include="Models\Service\ServiceApiConfig.cs" />
     <Compile Include="Models\Service\ServiceViewModel.cs" />
     <Compile Include="Models\Users\UserApiConfig.cs" />
     <Compile Include="Models\Users\UserListViewModel.cs" />
