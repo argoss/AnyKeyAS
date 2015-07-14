@@ -255,7 +255,7 @@ namespace Servicing.Account
                 Patronymic = item.Patronymic,
                 UserName = item.UserName,
                 Email = item.Email,
-                Phone = item.Email,
+                Phone = item.PhoneNumber,
                 Position = item.Position,
                 Roles = (_userManager.GetRolesAsync(item.Id).Result).ToArray()
             };

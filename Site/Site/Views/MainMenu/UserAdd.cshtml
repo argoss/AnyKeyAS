@@ -23,7 +23,11 @@
         <label for="patronymic">Отчество</label>
         <input type="text" id="patronymic" ng-model="user.Patronymic" class="form-control" placeholder="Иванович" />
     </div>
-   <div class="form-group">
+    <div class="form-group">
+        <label for="position">Должность</label>
+        <input type="text" id="position" ng-model="user.Position" class="form-control" placeholder="Должность" />
+    </div>
+    <div class="form-group">
         <label for="roles">Роли</label>
         <button type="button" ng-class="{'glyphicon glyphicon-plus': slideUp, 'glyphicon glyphicon-minus': !slideUp}" ng-click="controller.slideUpDown()"></button>
         <div class="rolesBlock">
