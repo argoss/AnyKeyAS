@@ -18,10 +18,10 @@
         <tbody>
             <tr ng-repeat="item in items">
                 <td>
-                    <span ng-bind="item.CreationDate"></span>
+                    <span ng-bind="controller.date2IsoStr(item.CreationDate)"></span>
                 </td>
                 <td>
-                    <span ng-bind="item.ExecutionDate"></span>
+                    <span ng-bind="controller.date2IsoStr(item.ExecutionDate)"></span>
                 </td>
                 <td>
                     <span ng-bind="item.Status"></span>

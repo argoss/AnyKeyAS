@@ -59,6 +59,10 @@ var RequestListCtrl = (function () {
         this.$scope.currentItem = null;
     };
 
+    RequestListCtrl.prototype.date2IsoStr = function (date) {
+        return date2IsoStr(date);
+    };
+
     return RequestListCtrl;
 })();
 

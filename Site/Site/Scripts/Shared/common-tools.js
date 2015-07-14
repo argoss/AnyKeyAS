@@ -27,3 +27,11 @@ function notifyError(msg, result) {
     /// <param name="result" type="any">Optional parameter. Result of http request</param>
     $(".notifications").notify({ type: "danger-blackgloss", message: { html: "<strong>Error!</strong> " + msg + (result ? errStringFromHttpResponse(result) : "") } }).show();
 }
+function date2IsoStr(date) {
+    if (date == null)
+        return null;
+    if (typeof (date) == 'string') {
+        date = new Date(date);
+    }
+    return date.toISOString().substring(0, 10);
+}
