@@ -35,7 +35,7 @@ namespace Servicing.Account
 
         Task<UserEditModel[]> GetUsers();
 
-        Task<UserEditModel> GetUser(int id);
+        Task<UserEditModel> GetUser(string name);
 
         Task<UserEditModel> GetUserById(string userId);
     }

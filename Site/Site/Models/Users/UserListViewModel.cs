@@ -13,10 +13,8 @@ namespace Site.Models.Users
         public UserViewModel[] List { get; set; }
     }
 
-    public class UserViewModel
+    public class BaseUserViewModel
     {
-        private string[] _roleses = new string[0];
-
         public string Id { get; set; }
 
         [Required]
@@ -38,16 +36,29 @@ namespace Site.Models.Users
         public string Phone { get; set; }
 
         [Required]
-        public string[] Roles
+        public string Position { get; set; }
+    }
+
+    public class UserViewModel : BaseUserViewModel
+    {
+        public string Roles { get; set; }
+    }
+
+    public class UserEditViewModel : BaseUserViewModel
+    {
+        private UserRoles[] _roleses = new UserRoles[0];
+
+        [Required]
+        public UserRoles[] Roles
         {
             get { return _roleses; }
-            set { _roleses = value ?? new string[0]; }
+            set { _roleses = value ?? new UserRoles[0]; }
         }
     }
 
-    public class UserCreateViewModel : UserViewModel
+    public class UserCreateViewModel : UserEditViewModel
     {
-        [Required]
+       [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

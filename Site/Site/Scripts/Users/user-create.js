@@ -9,6 +9,7 @@ var UserCreateCtrl = (function () {
 
     UserCreateCtrl.prototype.init = function () {
         var _this = this;
+        this.$scope.roles = { userRole: [] }
 
         this.$http.get("/api/act/UserApi/GetRoleList").then(function (args) {
             _this.$scope.roles = args.data;
@@ -28,6 +29,8 @@ var UserCreateCtrl = (function () {
             Phone: "",
             Roles: []
         };
+
+        this.$scope.selectedRole = {};
     };
 
     UserCreateCtrl.prototype.save = function () {
@@ -40,6 +43,17 @@ var UserCreateCtrl = (function () {
             this.$location.path("");
         });
     };
+
+    UserCreateCtrl.prototype.addRole = function (role) {
+        var target = this.$scope.roles.filter(function (item) { return item == role; })[0];
+        if (target == null)
+            return;
+
+        this.$scope.user.Roles.add(target);
+
+        var removedIndex = this.$scope.items.indexOf(target);
+        this.$scope.roles.splice(removedIndex, 1);
+    }
 
     UserCreateCtrl.prototype.cancel = function () {
         this.$location.path("");

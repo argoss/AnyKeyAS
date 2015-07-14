@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -48,51 +49,28 @@ namespace Site.Controllers.User
             return roles.Select(x => x.Name).ToArray();
         }
 
-        /*private async Task<bool> ModifyUser(UserItemModifyViewModel viewModel)
-        {
-            var result = await _accountService.ModifyUser(new UserEditModel
-            {
-                UserName = viewModel.UserName,
-                FirstName = viewModel.FirstName,
-                LastName = viewModel.LastName,
-                Email = viewModel.Email,
-                Phone = viewModel.Phone,
-                BrokerCode = viewModel.BrokerCode,
-                Company = viewModel.Company,
-                CompanyCode = viewModel.CompanyCode,
-                CompanyNumber = viewModel.CompanyNumber
-            }).ConfigureAwait(false);
-
-            if (!result.IsSuccess) return false;
-
-            var currentUser = await _accountService.GetUser(viewModel.UserName).ConfigureAwait(false);
-
-            foreach (var currentRole in currentUser.Roles.Where(x => !viewModel.Roles.Contains(x)))
-            {
-                result = await _accountService.RemoveFromRole(viewModel.UserName, currentRole).ConfigureAwait(false);
-                if (!result.IsSuccess) return false;
-            }
-
-            foreach (var currentRole in viewModel.Roles.Where(x => !currentUser.Roles.Contains(x)))
-            {
-                result = await _accountService.AddToRole(viewModel.UserName, currentRole).ConfigureAwait(false);
-                if (!result.IsSuccess) return false;
-            }
-
-            return result.IsSuccess;
-        }*/
-
         [HttpGet]
         public async Task<UserListViewModel> GetUsers()
         {
             var items = await _accountService.GetUsers().ConfigureAwait(false);
+
             return new UserListViewModel { List = Mapper.Map<UserEditModel[], UserViewModel[]>(items) };
         }
 
         [HttpGet]
-        public async Task<UserViewModel> GetUser(int? id = null)
+        public async Task<UserEditViewModel> GetUser(Guid id)
         {
-            var model = id == null ? new UserViewModel() : Mapper.Map<UserEditModel, UserViewModel>(await _accountService.GetUser(id.Value));
+            var item = await _accountService.GetUserById(id.ToString());
+
+            var roles = _roleService.List();
+            var userRoleModel = roles.Select(x => new UserRoles
+            {
+                Flag = item.Roles.Contains(x.Name),
+                Name = x.Name
+            }).ToArray();
+
+            var model = Mapper.Map<UserEditModel, UserEditViewModel>(item);
+            model.Roles = userRoleModel;
 
             return model;
         }

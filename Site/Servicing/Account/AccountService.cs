@@ -57,6 +57,7 @@ namespace Servicing.Account
 			    user.Patronymic = model.Patronymic;
 				user.Email = model.Email;
 				user.PhoneNumber = model.Phone;
+			    user.Position = model.Position;
 			    //user.Roles = new IdentityUserRole[] {_roleService.GetByName(model.Roles)};
 
                 await _userManager.UpdateAsync(user).ConfigureAwait(false);
@@ -182,12 +183,13 @@ namespace Servicing.Account
             return users.Select(FromDB).ToArray();
         }
 
-        public async Task<UserEditModel> GetUser(int id)
+        public async Task<UserEditModel> GetUser(string name)
         {
-            var user = await _userManager.FindByIdAsync(id.ToString()).ConfigureAwait(false);
+            var user = await _userManager.FindByNameAsync(name).ConfigureAwait(false);
 
             if (user == null) return null;
 
+            var roles = await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false);
             return new UserEditModel
             {
                 UserName = user.UserName,
@@ -196,7 +198,8 @@ namespace Servicing.Account
                 Patronymic = user.Patronymic,
                 Email = user.Email,
                 Phone = user.PhoneNumber,
-                Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
+                Position = user.Position,
+                Roles = roles.ToArray()
             };
         }
 
@@ -206,16 +209,18 @@ namespace Servicing.Account
 
 			if (user == null) return null;
 
-			return new UserEditModel
-			{
-				UserName = user.UserName,
-				FirstName = user.FirstName,
-				LastName = user.LastName,
+            var roles = await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false);
+            return new UserEditModel
+            {
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Patronymic = user.Patronymic,
-				Email = user.Email,
-				Phone = user.PhoneNumber,
-                Roles = (await _userManager.GetRolesAsync(user.Id).ConfigureAwait(false)).ToArray()
-			};
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                Position = user.Position,
+                Roles = roles.ToArray()
+            };
         }
 
         private AccountServiceResult GetResult(IdentityResult identityResult)
@@ -238,6 +243,7 @@ namespace Servicing.Account
                 UserName = item.UserName,
                 Email = item.Email,
                 Phone = item.Email,
+                Position = item.Position,
                 Roles = (_userManager.GetRolesAsync(item.Id).Result).ToArray()
             };
         }

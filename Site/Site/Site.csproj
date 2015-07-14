@@ -227,6 +227,7 @@
     <Compile Include="Models\Service\ServiceViewModel.cs" />
     <Compile Include="Models\Users\UserApiConfig.cs" />
     <Compile Include="Models\Users\UserListViewModel.cs" />
+    <Compile Include="Models\Users\UserRoles.cs" />
     <Compile Include="PresentationLogic\Container\BusinessLogicInstaller.cs" />
     <Compile Include="PresentationLogic\Container\ControllersInstaller.cs" />
     <Compile Include="PresentationLogic\Container\locContainer.cs" />

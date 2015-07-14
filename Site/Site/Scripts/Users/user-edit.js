@@ -9,10 +9,12 @@ var UserEditCtrl = (function () {
     }
 
     UserEditCtrl.prototype.init = function () {
+        this.$scope.slideUp = false;
+
         var _this = this;
         this.$scope.user = {};
 
-        this.$http.get("/api/act/UserApi/GetUser", { params: { id: this.id } }).then(function (args) {
+        this.$http.get("/api/act/UserApi/GetUser", { params: { id: _this.$scope.id } }).then(function (args) {
             _this.$scope.user = args.data;
             notifySuccess("Item were loaded.");
         }).catch(function (e) {
@@ -32,6 +34,16 @@ var UserEditCtrl = (function () {
 
     UserEditCtrl.prototype.cancel = function () {
         this.$location.path("");
+    }
+
+    UserEditCtrl.prototype.slideUpDown = function () {
+        if (!this.$scope.slideUp) {
+            $(".rolesBlock").slideUp();
+            this.$scope.slideUp = true;
+        } else {
+            $(".rolesBlock").slideDown();
+            this.$scope.slideUp = false;
+        }
     }
 
     return UserEditCtrl;

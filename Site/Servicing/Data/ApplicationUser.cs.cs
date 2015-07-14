@@ -9,5 +9,7 @@ namespace Servicing.Data
         public string LastName { get; set; }
 
         public string Patronymic { get; set; }
+
+        public string Position { get; set; }
     }
 }

@@ -22,7 +22,12 @@ namespace Site.Automapper
             Mapper.CreateMap<RequestViewModel, RequestModel>()
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse(typeof(RequestStatus), src.Status)));
 
-            Mapper.CreateMap<UserEditModel, UserViewModel>();
+            Mapper.CreateMap<UserEditModel, UserEditViewModel>()
+                .ForMember(dest => dest.Roles, opt => opt.Ignore());
+            Mapper.CreateMap<UserEditViewModel, UserEditModel>();
+
+            Mapper.CreateMap<UserEditModel, UserViewModel>()
+                .ForMember(dest => dest.Roles, opt => opt.Ignore());
             Mapper.CreateMap<UserViewModel, UserEditModel>();
 
             Mapper.CreateMap<UserCreateModel, UserCreateViewModel>();

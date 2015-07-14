@@ -20,6 +20,8 @@ namespace Servicing.Account
 
         public string Phone { get; set; }
 
+        public string Position { get; set; }
+
         public string[] Roles
         {
             get { return _roleses; }
