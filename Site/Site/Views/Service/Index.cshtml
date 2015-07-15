@@ -1,0 +1,64 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Servicing.Requests
+@using Site.Models.Extensions
+@model Site.Models.Service.ServiceApiConfig
+           
+@{
+    var statuses = (from RequestStatus suit in Enum.GetValues(typeof(RequestStatus)) select suit.GetDisplayName()).ToList();
+    
+    
+}
+           
+<div class="row" ng-controller="ServiceCtrl" ng-init="controller.init(@Json.Encode(Model))">
+    <div class="input-group">        
+        @*<nav>
+            <ul class="pagination pagination-lg">
+                @foreach (var statusBtn in statuses)
+                {
+                    <li ><a ng-click="controller.filter('@statusBtn')">@statusBtn</a></li>
+                }
+            </ul>
+        </nav>
+        *@
+        <ul class="nav nav-pills">
+            @foreach (var statusBtn in statuses)
+            {
+                <li role="presentation" class="pagination pagination-lg"><a ng-click="controller.filter('@statusBtn')">@statusBtn</a></li>
+            }
+            <li role="presentation" class="pagination pagination-lg active"><a ng-click="controller.filter('All')">Все</a></li>
+        </ul>
+    </div>
+    <div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Клиент</th>
+                    <th>Дата поступления</th>
+                    <th>Дата исполнения</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in items">
+                    <td>
+                        <span ng-bind="item.ClientName"></span>
+                    </td>
+                    <td>
+                        <span ng-bind="controller.date2IsoStr(item.CreationDate)"></span>
+                    </td>
+                    <td>
+                        <span ng-bind="controller.date2IsoStr(item.ExecutionDate)"></span>
+                    </td>
+                    <td>
+                        <span ng-bind="item.Status"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/scriptbundles/service")
+}

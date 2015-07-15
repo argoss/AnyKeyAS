@@ -11,11 +11,14 @@ var ServiceCtrl = (function () {
 
     ServiceCtrl.prototype.init = function (configuration) {
         var _this = this;
-        this.urlList = configuration;
+        this.apiCfg = configuration;
         this.$scope.items = [];
+        this.$scope.requests = [];
+        this.$scope.query = [];
 
-        this.$http.get(this.urlList).then(function (args) {//"/DefaultActionApi/ClientApi/GetClients"
+        this.$http.get(_this.apiCfg.RequestUrl).then(function (args) {//"/DefaultActionApi/ClientApi/GetClients"
             _this.$scope.items = args.data.List;
+            _this.$scope.requests = args.data.List;
             notifySuccess("Items were loaded.");
         }).catch(function (e) {
             notifyError("Unable to get items.", e);
@@ -24,7 +27,24 @@ var ServiceCtrl = (function () {
         });
     };
 
-    
+    ServiceCtrl.prototype.filter = function(filter) {
+        var status = this.$scope.query.filter(function (item) {
+            return item == filter;
+        })[0];
+        if (status == null) {
+            this.$scope.query.add(status);
+        } else {
+            this.$scope.query.remove(status);
+        }
+
+        this.$scope.requests = this.$scope.requests.filter(function (item) {            
+            return this.$scope.query.filter(function (q) { return q == item.Status; }).length > 0;
+        });
+    };
+
+    ServiceCtrl.prototype.date2IsoStr = function (date) {
+        return date2IsoStr(date);
+    };
 
     return ServiceCtrl;
 })();

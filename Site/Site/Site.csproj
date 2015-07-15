@@ -1215,7 +1215,7 @@
     <Content Include="Views\MainMenu\UserEdit.cshtml" />
     <Content Include="Views\MainMenu\RequestAdd.cshtml" />
     <Content Include="Views\MainMenu\UserAdd.cshtml" />
-    <Content Include="Views\Service\Service.cshtml" />
+    <Content Include="Views\Service\Index.cshtml" />
     <Content Include="Views\MainMenu\RequestEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>

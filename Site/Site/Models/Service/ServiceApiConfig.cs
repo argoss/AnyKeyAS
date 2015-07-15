@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Site.Models.Service
+﻿namespace Site.Models.Service
 {
     public class ServiceApiConfig
     {
+        public string RequestUrl { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using Servicing.Requests;
 
 namespace Site.Models.Service
 {

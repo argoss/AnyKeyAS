@@ -86,9 +86,12 @@ namespace Site
                 Include("~/Scripts/Requests/request-edit.js").
                 AddTo(bundles);
 
-           /* new ScriptBundle("~/scriptbundles/user-list").
-                Include("~/Scripts/Users/user-list.js").
-                AddTo(bundles);*/
+            new ScriptBundle("~/scriptbundles/service").
+                Include("~/Scripts/angular-ui/ui-bootstrap.js").
+                Include("~/Scripts/angular-ui/ui-bootstrap-tpls.js").
+                Include("~/Scripts/Shared/common-tools.js").
+                Include("~/Scripts/Service/service.js").
+                AddTo(bundles);
 
             BundleTable.Bundles.ToList()
                 .FindAll(x => x.GetType() == typeof(ScriptBundle))

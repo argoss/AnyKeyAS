@@ -6,7 +6,9 @@ using Servicing.Clients;
 using Servicing.Requests;
 using Servicing.Users;
 using Site.Models.Clients;
+using Site.Models.Extensions;
 using Site.Models.Requests;
+using Site.Models.Service;
 using Site.Models.Users;
 
 namespace Site.Automapper
@@ -36,10 +38,10 @@ namespace Site.Automapper
             Mapper.CreateMap<UserCreateViewModel, UserCreateModel>()
                 .ForMember(dest => dest.Roles, opt => opt.MapFrom(src => src.Roles.Where(x => x.Flag).Select(x => x.Name)));
 
-            /*Mapper.CreateMap<PageHistoryItemModel, PageHistoryItemViewModel>().
-                ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PageId));
-            Mapper.CreateMap<PageHistoryItemViewModel, PageHistoryItemModel>().
-                ForMember(dest => dest.PageId, opt => opt.MapFrom(src => src.Id));*/
+            Mapper.CreateMap<RequestModel, ServiceViewModel>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDescription()));
+            Mapper.CreateMap<ServiceViewModel, RequestModel>()
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => (RequestStatus)Enum.Parse(typeof(RequestStatus), src.Status, true)));
         }
     }
 }

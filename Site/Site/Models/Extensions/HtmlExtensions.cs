@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -41,6 +44,24 @@ namespace Site.Models.Extensions
             tag.MergeAttribute("type", "text/ng-template");
             tag.InnerHtml = html.Action(action, controller).ToString();
             return new MvcHtmlString(tag.ToString());
+        }
+
+        public static string GetDisplayName(this Enum enumValue)
+        {
+            return enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .First()
+                            .GetCustomAttribute<DisplayAttribute>()
+                            .GetName();
+        }
+
+        public static string GetDescription(this Enum enumValue)
+        {
+            return enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .First()
+                            .GetCustomAttribute<DescriptionAttribute>()
+                            .Description;
         }
     }
 }
