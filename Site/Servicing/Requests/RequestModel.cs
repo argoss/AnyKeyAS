@@ -10,6 +10,8 @@ namespace Servicing.Requests
 
         public DateTime ExecutionDate { get; set; }
 
+        public DateTime ModifyDate { get; set; }
+
         public RequestStatus Status { get; set; }
 
         public int ClientId { get; set; }

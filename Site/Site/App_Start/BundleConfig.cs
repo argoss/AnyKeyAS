@@ -93,6 +93,13 @@ namespace Site
                 Include("~/Scripts/Service/service.js").
                 AddTo(bundles);
 
+            /*new StyleBundle("~/stylebundles/services").
+                Include("~/Content/styles/service.css").
+                AddTo(bundles);*/
+
+            bundles.Add(new StyleBundle("~/stylebundles/services").Include(
+                      "~/Content/styles/service.css"));
+
             BundleTable.Bundles.ToList()
                 .FindAll(x => x.GetType() == typeof(ScriptBundle))
                 .ForEach(b => b.Transforms.Add(new JsRemoveSourceMappingUrlTransform()));

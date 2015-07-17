@@ -51,10 +51,26 @@ namespace Servicing.Requests
                 {
                     item.CreationDate = model.CreationDate;
                     item.ExecutionDate = model.ExecutionDate;
+                    item.ModifyDate = model.ModifyDate;
                     item.Status = model.Status;
                     item.Client = client;
                 }
                 
+                await dc.SaveChangesAsync().ConfigureAwait(false);
+            }
+        }
+
+        public async Task ChangeStatusRequest(int id, RequestStatus status)
+        {
+            using (var dc = new AnykeyDbCntext())
+            {
+                var item = await dc.Requests.FirstOrDefaultAsync(x => x.Id ==id).ConfigureAwait(false);
+                if (item == null)
+                    return;
+
+                item.Status = status;
+                item.ModifyDate = DateTime.Now;
+
                 await dc.SaveChangesAsync().ConfigureAwait(false);
             }
         }
@@ -81,6 +97,7 @@ namespace Servicing.Requests
                 //Id = model.Id,
                 CreationDate = model.CreationDate,
                 ExecutionDate = model.ExecutionDate,
+                ModifyDate = model.ModifyDate,
                 Status = model.Status,
             };
         }
@@ -92,6 +109,7 @@ namespace Servicing.Requests
                 Id = item.Id,
                 CreationDate = item.CreationDate,
                 ExecutionDate = item.ExecutionDate,
+                ModifyDate = item.ModifyDate,
                 Status = item.Status,
                 ClientId = item.Client.Id,
                 ClientName = item.Client.Name

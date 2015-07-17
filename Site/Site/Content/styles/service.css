@@ -1,0 +1,36 @@
+﻿body,html{
+    height: 100%;
+  }
+
+.filter {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.filter > li {
+  position: relative;
+  display: block;
+}
+
+.filter > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+
+.filter-btns > li {
+  float: left;
+}
+
+.filter-btns > li > a {
+  border-radius: 4px;
+  font-size: 20px;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+}
+
+.active {
+    background-color: #31b0d5;
+}
+

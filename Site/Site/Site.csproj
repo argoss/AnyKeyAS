@@ -254,6 +254,7 @@
     <Content Include="Content\styles\alert-bangtidy.css" />
     <Content Include="Content\styles\alert-blackgloss.css" />
     <Content Include="Content\styles\main-menu.css" />
+    <Content Include="Content\styles\service.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />

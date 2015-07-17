@@ -9,6 +9,8 @@ namespace Servicing.Requests
 
         Task<RequestModel> GetRequest(int id);
 
+        Task ChangeStatusRequest(int id, RequestStatus status);
+
         Task SaveRequest(RequestModel model);
 
         Task DeleteRequest(int id);

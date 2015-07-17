@@ -16,9 +16,10 @@ var ServiceCtrl = (function () {
         this.$scope.requests = [];
         this.$scope.query = [];
 
-        this.$http.get(_this.apiCfg.RequestUrl).then(function (args) {//"/DefaultActionApi/ClientApi/GetClients"
+        this.$http.get(_this.apiCfg.RequestUrl).then(function (args) {
             _this.$scope.items = args.data.List;
             _this.$scope.requests = args.data.List;
+
             notifySuccess("Items were loaded.");
         }).catch(function (e) {
             notifyError("Unable to get items.", e);
@@ -27,18 +28,49 @@ var ServiceCtrl = (function () {
         });
     };
 
-    ServiceCtrl.prototype.filter = function(filter) {
-        var status = this.$scope.query.filter(function (item) {
-            return item == filter;
-        })[0];
-        if (status == null) {
-            this.$scope.query.add(status);
+    ServiceCtrl.prototype.filter = function (btn, filter) {
+        var index = this.$scope.query.indexOf(filter);
+        if (index == -1) {
+            this.$scope.query.push(filter);
+            $('#' + btn).attr('class', 'pagination pagination-lg active');
         } else {
-            this.$scope.query.remove(status);
+            this.$scope.query.splice(index, 1);
+            $('#' + btn).attr('class', 'pagination pagination-lg');
         }
+        if (this.$scope.query.length < 1) {
+            this.$scope.requests = this.$scope.items;
+            $('#all').attr('class', 'pagination pagination-lg active');
+            return;
+        } else {
+            $('#all').attr('class', 'pagination pagination-lg');
+        }
+            
+        var _this = this;
+        this.$scope.requests = this.$scope.items.filter(function (item) {
+            return _this.$scope.query.indexOf(item.Status) > -1;
+        });
+    };
 
-        this.$scope.requests = this.$scope.requests.filter(function (item) {            
-            return this.$scope.query.filter(function (q) { return q == item.Status; }).length > 0;
+    ServiceCtrl.prototype.all = function () {
+        $('.filter').find("li").attr('class', 'pagination pagination-lg');
+
+        this.$scope.query = [];
+        this.$scope.requests = this.$scope.items;
+        $('#all').attr('class', 'pagination pagination-lg active');
+    };
+
+    ServiceCtrl.prototype.changeStatus = function (item, status) {
+        item.Status = status;
+        item.ModifyDate = new Date();
+        var _this = this;
+        this.$http.post("/api/act/ServiceApi/ChangeStatus", { id: item.Id, status: status }).then(function () {
+            if (_this.$scope.query.length < 1)
+                return;
+            _this.$scope.requests = _this.$scope.items.filter(function (r) {
+                return _this.$scope.query.indexOf(r.Status) > -1;
+            });
+        }).catch(function (e) {
+            notifyError("Error saving model.", e);
         });
     };
 

@@ -2,30 +2,20 @@
 @using Servicing.Requests
 @using Site.Models.Extensions
 @model Site.Models.Service.ServiceApiConfig
-           
-@{
-    var statuses = (from RequestStatus suit in Enum.GetValues(typeof(RequestStatus)) select suit.GetDisplayName()).ToList();
-    
-    
+ 
+@section Styles
+{
+    @Styles.Render("~/stylebundles/services")
 }
-           
+         
 <div class="row" ng-controller="ServiceCtrl" ng-init="controller.init(@Json.Encode(Model))">
     <div class="input-group">        
-        @*<nav>
-            <ul class="pagination pagination-lg">
-                @foreach (var statusBtn in statuses)
-                {
-                    <li ><a ng-click="controller.filter('@statusBtn')">@statusBtn</a></li>
-                }
-            </ul>
-        </nav>
-        *@
-        <ul class="nav nav-pills">
-            @foreach (var statusBtn in statuses)
+        <ul class="filter filter-btns">
+            @foreach (RequestStatus statusBtn in Enum.GetValues(typeof(RequestStatus)))
             {
-                <li role="presentation" class="pagination pagination-lg"><a ng-click="controller.filter('@statusBtn')">@statusBtn</a></li>
+                <li id="@statusBtn" role="presentation" class="pagination pagination-lg"><a ng-click="controller.filter('@statusBtn' ,'@statusBtn.GetDescription()')">@statusBtn.GetDisplayName()</a></li>
             }
-            <li role="presentation" class="pagination pagination-lg active"><a ng-click="controller.filter('All')">Все</a></li>
+            <li id="all" role="presentation" class="pagination pagination-lg active"><a ng-click="controller.all()" >Все</a></li>
         </ul>
     </div>
     <div>
@@ -33,24 +23,32 @@
             <thead>
                 <tr>
                     <th>Клиент</th>
-                    <th>Дата поступления</th>
-                    <th>Дата исполнения</th>
+                    <th>Дата изменения</th>
                     <th>Статус</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in items">
+                <tr ng-repeat="item in requests">
                     <td>
                         <span ng-bind="item.ClientName"></span>
                     </td>
                     <td>
-                        <span ng-bind="controller.date2IsoStr(item.CreationDate)"></span>
+                        <span ng-bind="controller.date2IsoStr(item.ModifyDate)"></span>
                     </td>
-                    <td>
-                        <span ng-bind="controller.date2IsoStr(item.ExecutionDate)"></span>
-                    </td>
-                    <td>
-                        <span ng-bind="item.Status"></span>
+                    <td>                        
+                        <ul class="nav nav-pills">
+                            <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" ng-bind="item.Status">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @foreach (RequestStatus status in Enum.GetValues(typeof(RequestStatus)))
+                                    {
+                                        <li><a ng-click="controller.changeStatus(item, '@status.GetDescription()')">@status.GetDescription()</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
                     </td>
                 </tr>
             </tbody>

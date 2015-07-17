@@ -25,5 +25,41 @@ namespace Site.Controllers.Service
 
             return new ServiceListViewModel{ List = Mapper.Map<RequestModel[], ServiceViewModel[]>(items)};
         }
+
+        [HttpPost]
+        public async Task ChangeStatus(StatusChangeModel model)
+        {
+            await _requestService.ChangeStatusRequest(model.Id, ToRequestStatus(model.Status));
+        }
+
+        public class StatusChangeModel
+        {
+            public int Id { get; set; }
+
+            public string Status { get; set; }
+        }
+
+        private RequestStatus ToRequestStatus(string status)
+        {
+            switch (status)
+            {
+                case "Принята":
+                    return RequestStatus.Accept;
+                case "Доставка в СЦ":
+                    return RequestStatus.DeliverySC;
+                case "Доставлена в СЦ":
+                    return RequestStatus.DeliveredSC;
+                case "Обработана":
+                    return RequestStatus.ProcessedSC;
+                case "Доставка клиенту":
+                    return RequestStatus.DeliveryC;
+                case "Исполнена":
+                    return RequestStatus.Performed;
+                case "Возврат":
+                    return RequestStatus.Return;
+                default:
+                    throw new Exception("Неизвестный статус!");
+            };
+        }
     }
 }

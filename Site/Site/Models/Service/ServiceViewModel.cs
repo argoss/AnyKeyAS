@@ -14,12 +14,14 @@ namespace Site.Models.Service
 
     public class ServiceViewModel
     {
+        public int Id { get; set; }
+
         public string ClientName { get; set; }
 
-        public DateTime CreationDate { get; set; }
-
-        public DateTime ExecutionDate { get; set; }
+        public DateTime ModifyDate { get; set; }
 
         public string Status { get; set; }
+
+        public int ClientId { get; set; }
     }
 }

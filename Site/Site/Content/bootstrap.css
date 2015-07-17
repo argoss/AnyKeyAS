@@ -3992,9 +3992,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-pills > li > a {
   border-radius: 4px;
-  font-size: 20px;
-  padding: 10px 16px;
-  border: 1px solid #ddd;
 }
 .nav-pills > li + li {
   margin-left: 2px;

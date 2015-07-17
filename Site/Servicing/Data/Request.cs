@@ -16,6 +16,9 @@ namespace Servicing.Data
         [Required]
         public DateTime ExecutionDate { get; set; }
 
+        [Required]
+        public DateTime ModifyDate { get; set; }
+
         public RequestStatus Status { get; set; }
 
         public int ClientId { get; set; }

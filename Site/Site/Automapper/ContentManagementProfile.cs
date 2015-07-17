@@ -41,7 +41,8 @@ namespace Site.Automapper
             Mapper.CreateMap<RequestModel, ServiceViewModel>()
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDescription()));
             Mapper.CreateMap<ServiceViewModel, RequestModel>()
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => (RequestStatus)Enum.Parse(typeof(RequestStatus), src.Status, true)));
+                .ForMember(dest => dest.Status, opt => opt.Ignore());
+            //.ForMember(dest => dest.Status, opt => opt.MapFrom(src => (RequestStatus)Enum.Parse(typeof(RequestStatus), src.Status, true)));
         }
     }
 }
