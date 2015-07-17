@@ -20,13 +20,10 @@ namespace Site.Models.Requests
     {
         public int Id { get; set; }
 
-        [Required]
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
-        [Required]
-        public DateTime ExecutionDate { get; set; }
+        public DateTime? ExecutionDate { get; set; }
 
-        [Required]
         public string Status { get; set; }
 
         public int ClientId { get; set; }

@@ -7,6 +7,7 @@ using Site.Models.Clients;
 
 namespace Site.Controllers.Clients
 {
+    [Authorize]
     public class ClientApiController: ApiController
     {
         private IClientService _clientService;

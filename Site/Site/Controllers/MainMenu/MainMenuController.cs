@@ -3,6 +3,7 @@ using Site.Models.MainMenu;
 
 namespace Site.Controllers.MainMenu
 {
+    [Authorize]
     public class MainMenuController: Controller
     {
         public ActionResult Index()

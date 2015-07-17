@@ -17,7 +17,7 @@ using Site.Models.Users;
 
 namespace Site.Controllers.User
 {
-    [Authorize(Roles = "admin")]
+    [Authorize]
     public sealed class UserApiController : ApiController
     {
         private IAccountService _accountService;

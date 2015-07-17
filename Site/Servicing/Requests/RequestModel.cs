@@ -6,11 +6,11 @@ namespace Servicing.Requests
     {
         public int Id { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
-        public DateTime ExecutionDate { get; set; }
+        public DateTime? ExecutionDate { get; set; }
 
-        public DateTime ModifyDate { get; set; }
+        public DateTime? ModifyDate { get; set; }
 
         public RequestStatus Status { get; set; }
 

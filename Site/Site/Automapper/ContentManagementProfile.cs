@@ -21,9 +21,9 @@ namespace Site.Automapper
             Mapper.CreateMap<ClientViewModel, ClientModel>();
 
             Mapper.CreateMap<RequestModel, RequestViewModel>()
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.GetDescription()));
             Mapper.CreateMap<RequestViewModel, RequestModel>()
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse(typeof(RequestStatus), src.Status)));
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => ToRequestStatus(src.Status)));
 
             Mapper.CreateMap<UserEditModel, UserEditViewModel>()
                 .ForMember(dest => dest.Position, opt => opt.MapFrom(src => src.Position.GetDisplayName()))
@@ -63,6 +63,29 @@ namespace Site.Automapper
                     return Position.ServiceEngineer;
                 default:
                     throw new Exception("Должность не существует!");
+            };
+        }
+
+        private RequestStatus ToRequestStatus(string status)
+        {
+            switch (status)
+            {
+                case "Принята":
+                    return RequestStatus.Accept;
+                case "Доставка в СЦ":
+                    return RequestStatus.DeliverySC;
+                case "Доставлена в СЦ":
+                    return RequestStatus.DeliveredSC;
+                case "Обработана":
+                    return RequestStatus.ProcessedSC;
+                case "Доставка клиенту":
+                    return RequestStatus.DeliveryC;
+                case "Исполнена":
+                    return RequestStatus.Performed;
+                case "Возврат":
+                    return RequestStatus.Return;
+                default:
+                    throw new Exception("Неизвестный статус!");
             };
         }
     }

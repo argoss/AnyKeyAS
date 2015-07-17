@@ -18,7 +18,7 @@ namespace Site.Models.Service
 
         public string ClientName { get; set; }
 
-        public DateTime ModifyDate { get; set; }
+        public DateTime? ModifyDate { get; set; }
 
         public string Status { get; set; }
 

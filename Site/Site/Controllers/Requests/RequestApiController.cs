@@ -7,6 +7,7 @@ using Site.Models.Requests;
 
 namespace Site.Controllers.Requests
 {
+    [Authorize]
     public class RequestApiController: ApiController
     {
         private IRequestService _requestService;

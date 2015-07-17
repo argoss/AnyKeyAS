@@ -10,6 +10,7 @@ using Site.Models.Service;
 
 namespace Site.Controllers.Service
 {
+    [Authorize]
     public class ServiceApiController: ApiController
     {
         private readonly IRequestService _requestService;
