@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Servicing.Account;
 
 namespace Site.Models.Users
 {

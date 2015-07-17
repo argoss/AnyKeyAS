@@ -10,6 +10,7 @@ using Servicing.Account;
 using Servicing.Clients;
 using Servicing.Roles;
 using Servicing.Users;
+using Site.Common;
 using Site.Models;
 using Site.Models.Clients;
 using Site.Models.Users;
@@ -29,6 +30,7 @@ namespace Site.Controllers.User
         }
 
         [HttpPost]
+        [AjaxAuthorize(Role.Admin)]
         public async Task<HttpResponseMessage> Create(UserCreateViewModel model)
         {
             if (model.Password != model.ConfirmPassword || !ModelState.IsValid)
@@ -43,6 +45,7 @@ namespace Site.Controllers.User
             return Request.CreateResponse(result.IsSuccess ? HttpStatusCode.OK : HttpStatusCode.InternalServerError, result);
         }
 
+        [AjaxAuthorize(Role.Admin)]
         public async Task<UserRoles[]> GetRoleList()
         {
             var list = _roleService.List().Select(x => new UserRoles
@@ -54,6 +57,7 @@ namespace Site.Controllers.User
         }
 
         [HttpGet]
+        [AjaxAuthorize(Role.Admin)]
         public async Task<UserListViewModel> GetUsers()
         {
             var items = await _accountService.GetUsers().ConfigureAwait(false);
@@ -62,6 +66,7 @@ namespace Site.Controllers.User
         }
 
         [HttpGet]
+        [AjaxAuthorize(Role.Admin)]
         public async Task<UserEditViewModel> GetUser(Guid id)
         {
             var item = await _accountService.GetUserById(id.ToString());
@@ -79,6 +84,7 @@ namespace Site.Controllers.User
         }
 
         [HttpPost]
+        [AjaxAuthorize(Role.Admin)]
         public async Task<HttpResponseMessage> Edit(UserEditViewModel model)
         {
             var result = await _accountService.ModifyUser(Mapper.Map<UserEditViewModel, UserEditModel>(model)).ConfigureAwait(false);
@@ -87,6 +93,7 @@ namespace Site.Controllers.User
         }
 
         [HttpDelete]
+        [AjaxAuthorize(Role.Admin)]
         public async Task DeleteUser(string id)
         {
             await _accountService.DeleteUser(id);

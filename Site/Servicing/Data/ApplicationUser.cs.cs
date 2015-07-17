@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Servicing.Account;
 
 namespace Servicing.Data
 {
@@ -10,6 +11,6 @@ namespace Servicing.Data
 
         public string Patronymic { get; set; }
 
-        public string Position { get; set; }
+        public Position Position { get; set; }
     }
 }

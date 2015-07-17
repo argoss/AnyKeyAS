@@ -200,20 +200,19 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Automapper\ContentManagementProfile.cs" />
+    <Compile Include="Common\AjaxAuthorizeAttribute.cs" />
     <Compile Include="Common\JsRemoveSourceMappingUrlTransform.cs" />
     <Compile Include="Common\PublicControllerConstraint.cs" />
+    <Compile Include="Common\Role.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Clients\ClientApiController.cs" />
-    <Compile Include="Controllers\Clients\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MainMenu\MainMenuController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Requests\RequestApiController.cs" />
-    <Compile Include="Controllers\Requests\RequestController.cs" />
     <Compile Include="Controllers\Service\ServiceApiController.cs" />
     <Compile Include="Controllers\Service\ServiceController.cs" />
     <Compile Include="Controllers\User\UserApiController.cs" />
-    <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

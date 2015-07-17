@@ -2,6 +2,7 @@
 using System.Web.Http;
 using AutoMapper;
 using Servicing.Requests;
+using Site.Common;
 using Site.Models.Requests;
 
 namespace Site.Controllers.Requests
@@ -16,6 +17,7 @@ namespace Site.Controllers.Requests
         }
 
         [HttpGet]
+        [AjaxAuthorize(Role.Operator, Role.ServiceEngineer, Role.Admin)]
         public async Task<RequestListViewModel> GetRequests()
         {
             var model = await _requestService.GetRequests();
@@ -24,6 +26,7 @@ namespace Site.Controllers.Requests
         }
 
         [HttpGet]
+        [AjaxAuthorize(Role.Operator, Role.ServiceEngineer, Role.Admin)]
         public async Task<RequestViewModel> GetRequest(int id)
         {
             var model = await _requestService.GetRequest(id);
@@ -32,12 +35,14 @@ namespace Site.Controllers.Requests
         }
 
         [HttpPost]
+        [AjaxAuthorize(Role.Operator, Role.Admin)]
         public async Task AddRequest(RequestViewModel model)
         {
             await _requestService.SaveRequest(Mapper.Map<RequestViewModel, RequestModel>(model));
         }
 
         [HttpDelete]
+        [AjaxAuthorize(Role.Operator, Role.Admin)]
         public async Task DeleteRequest(int id)
         {
             await _requestService.DeleteRequest(id);

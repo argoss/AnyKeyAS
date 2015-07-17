@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using AutoMapper;
 using Servicing.Requests;
+using Site.Common;
 using Site.Models.Extensions;
 using Site.Models.Service;
 
@@ -27,6 +28,7 @@ namespace Site.Controllers.Service
         }
 
         [HttpPost]
+        [AjaxAuthorize(Role.ExitEngineer, Role.ServiceEngineer, Role.Admin)]
         public async Task ChangeStatus(StatusChangeModel model)
         {
             await _requestService.ChangeStatusRequest(model.Id, ToRequestStatus(model.Status));

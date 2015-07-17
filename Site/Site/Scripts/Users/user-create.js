@@ -56,6 +56,10 @@ var UserCreateCtrl = (function () {
         this.$scope.roles.splice(removedIndex, 1);
     }
 
+    UserCreateCtrl.prototype.changePosition = function (user, position) {
+        user.Position = position;
+    }
+
     UserCreateCtrl.prototype.cancel = function () {
         this.$location.path("");
     }

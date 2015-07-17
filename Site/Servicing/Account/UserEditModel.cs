@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Servicing.Account
 {
@@ -20,7 +21,7 @@ namespace Servicing.Account
 
         public string Phone { get; set; }
 
-        public string Position { get; set; }
+        public Position Position { get; set; }
 
         public string[] Roles
         {
@@ -34,5 +35,17 @@ namespace Servicing.Account
         public string Password { get; set; }
 
         public string ConfirmPassword { get; set; }
+    }
+
+    public enum Position
+    {
+        [Display(Name = "Администратор")]
+        Admin = 0,
+        [Display(Name = "Выездной инжинер")]
+        ExitEngineer = 1,
+        [Display(Name = "Оператор")]
+        Operator = 2,
+        [Display(Name = "Инжинер сервисного центра")]
+        ServiceEngineer = 3
     }
 }

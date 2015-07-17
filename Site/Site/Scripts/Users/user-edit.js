@@ -24,6 +24,10 @@ var UserEditCtrl = (function () {
         });
     };
 
+    UserEditCtrl.prototype.changePosition = function (user, position) {
+        user.Position = position;
+    }
+
     UserEditCtrl.prototype.saveUser = function () {
         var _this = this;
         this.$http.post("/api/act/UserApi/Edit", this.$scope.user).then(function () {

@@ -2,6 +2,7 @@
 using System.Web.Http;
 using AutoMapper;
 using Servicing.Clients;
+using Site.Common;
 using Site.Models.Clients;
 
 namespace Site.Controllers.Clients
@@ -15,7 +16,7 @@ namespace Site.Controllers.Clients
             _clientService = clientService ?? new ClientService();
         }
 
-        [HttpGet]
+        [HttpGet]        
         public async Task<ClientListViewModel> GetClients()
         {
             var model = await _clientService.GetClients().ConfigureAwait(false);
@@ -32,12 +33,14 @@ namespace Site.Controllers.Clients
         }
 
         [HttpPost]
+        [AjaxAuthorize(Role.Operator, Role.Admin)]
         public async Task AddClient(ClientViewModel model)
         {
             await _clientService.SaveClient(Mapper.Map<ClientViewModel, ClientModel>(model));
         }
 
         [HttpDelete]
+        [AjaxAuthorize(Role.Operator, Role.Admin)]
         public async Task DeleteClient(int id)
         {
             await _clientService.DeleteClient(id).ConfigureAwait(false);
