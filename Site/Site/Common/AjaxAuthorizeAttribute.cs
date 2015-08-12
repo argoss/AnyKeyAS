@@ -1,13 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using System.Threading;
+using System.Web.Http.Controllers;
+using Microsoft.AspNet.Identity;
+using Servicing.Account;
+using Servicing.Roles;
 
 namespace Site.Common
 {
-    public class AjaxAuthorizeAttribute : AuthorizeAttribute
+    public class AjaxAuthorizeAttribute : System.Web.Http.AuthorizeAttribute
     {
+        private IAccountService _accountService;
 
+        public AjaxAuthorizeAttribute(params Role[] roles)
+        {
+            Roles = roles.Select(role => role.ToString()).ToArray();
+
+            _accountService = new AccountService(new RoleService());
+        }
+
+        public new string[] Roles
+        {
+            get
+            {
+                return base.Roles.Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            set
+            {
+                base.Roles = value != null ? string.Join(", ", value) : string.Empty;
+            }
+        }
+
+        public override void OnAuthorization(HttpActionContext actionContext)
+        {
+            var id = Thread.CurrentPrincipal.Identity.GetUserId();
+            var user = _accountService.GetUserById(id).Result;
+
+            if (user == null)
+                base.HandleUnauthorizedRequest(actionContext);
+
+            if (!Roles.Any(x => user.Roles.Contains(x, new RoleComparer())))
+            {
+                base.HandleUnauthorizedRequest(actionContext);
+            }
+        }
+
+        protected override bool IsAuthorized(HttpActionContext actionContext)
+        {
+
+            
+            return base.IsAuthorized(actionContext);
+        }
+
+        protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
+        {
+            
+        }
+    }
+
+    public class RoleComparer : IEqualityComparer<string>
+    {
+        public bool Equals(string x, string y)
+        {
+            return x.ToLower() == y.ToLower();
+        }
+
+        public int GetHashCode(string x)
+        {
+            if (Object.ReferenceEquals(x, null)) return 0;
+                return 1;
+        }
+    }
+
+
+    /*public class AjaxAuthorizeAttribute : System.Web.Http.AuthorizeAttribute
+    {
         public AjaxAuthorizeAttribute(params Role[] roles)
         {
             Roles = roles;
@@ -67,5 +135,5 @@ namespace Site.Common
                 context.HttpContext.Response.End();
             }
         }
-    }
+    }*/
 }
