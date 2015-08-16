@@ -35,7 +35,7 @@ var MainMenuCtrl = (function () {
 })();
 
 MainMenuCtrl.$inject = ['$scope', '$http', '$location'];
-var app = angular.module("anykeyApp", ['ngRoute']);
+var app = getOrCreateAngularModule("anykeyApp", ['ngRoute']);
 
 function configFunction($httpProvider) {
     $httpProvider.defaults.cache = false;

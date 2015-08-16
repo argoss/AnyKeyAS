@@ -134,7 +134,7 @@ namespace Site.Controllers
         public ActionResult LogOff()
         {
             _accountService.SignOut(Request.RequestContext);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         protected override void Dispose(bool disposing)
