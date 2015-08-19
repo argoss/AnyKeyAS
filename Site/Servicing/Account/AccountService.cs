@@ -103,7 +103,7 @@ namespace Servicing.Account
             if (user == null) { return new AccountServiceResult
             {
                 IsSuccess = false,
-                Errors = new[] { "Unknown user name" }
+                Errors = new[] { "Неизвестное имя пользователя" }
             }; }
 
             return GetResult(await _userManager.ResetPasswordAsync(user.Id, token, newPassword).ConfigureAwait(false));
@@ -133,7 +133,7 @@ namespace Servicing.Account
             if (user == null) { return new AccountServiceResult
             {
                 IsSuccess = false,
-                Errors = new[] { "Unknown user name" }
+                Errors = new[] { "Неизвестное имя пользователя" }
             }; }
 
 			return GetResult(await _userManager.AddToRoleAsync(user.Id, roleName).ConfigureAwait(false));
@@ -146,7 +146,7 @@ namespace Servicing.Account
             if (user == null) { return new AccountServiceResult
             {
                 IsSuccess = false,
-                Errors = new[] { "Unknown user name" }
+                Errors = new[] { "Неизвестное имя пользователя" }
             }; }
 
             return GetResult(await _userManager.RemoveFromRoleAsync(user.Id, roleName).ConfigureAwait(false));

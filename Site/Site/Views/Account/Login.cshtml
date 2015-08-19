@@ -2,7 +2,7 @@
 @model LoginViewModel
 @{
     Layout = "~/Views/Shared/LoginLayout.cshtml";
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Вход";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -37,14 +37,14 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Log in" class="btn btn-default" />
+                    <input type="submit" value="Вход" class="btn btn-default" />
                 </div>
             </div>
             <p>
-                @Html.ActionLink("Register as a new user", "Register", "UserApi")
+                @Html.ActionLink("Зарегистрироваться как новый пользователь", "Register", "UserApi")
             </p>
             <p>
-                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                @Html.ActionLink("Забыли пароль?", "ForgotPassword")
             </p>
         }
     </section>
