@@ -37,25 +37,23 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
-
-            if (await _accountService.ValidateUser(model.UserName, model.Password))
-            {
-                if (await _accountService.SignInAsync(model.UserName, model.RememberMe, Request.RequestContext))
+                if (await _accountService.ValidateUser(model.UserName, model.Password).ConfigureAwait(false))
                 {
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    if (await _accountService.SignInAsync(model.UserName, model.RememberMe, Request.RequestContext).ConfigureAwait(false))
                     {
-                        return RedirectToLocal(returnUrl);
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            return RedirectToLocal(returnUrl);
+                        }
+                        return RedirectToAction("Index", "MainMenu");
                     }
                 }
-            }
-            else
                 ModelState.AddModelError("", "Invalid username or password.");
+            }
 
-            return RedirectToAction("Index", "MainMenu");
+            return View(model);
         }
 
         //

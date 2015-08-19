@@ -131,6 +131,9 @@
     <Compile Include="Extensions\RelfectionExtensions.cs" />
     <Compile Include="Extensions\TraversingExtensions.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Permissions\IPermissionService.cs" />
+    <Compile Include="Permissions\PermissionModel.cs" />
+    <Compile Include="Permissions\PermissionService.cs" />
     <Compile Include="Requests\IRequestService.cs" />
     <Compile Include="Requests\RequestModel.cs" />
     <Compile Include="Requests\RequestService.cs" />
