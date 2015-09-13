@@ -15,9 +15,9 @@ var RequestEditCtrl = (function () {
 
         this.$http.get("/api/act/RequestApi/GetRequest", { params: { id: _this.$scope.id } }).then(function (args) {
             _this.$scope.request = args.data;
-            notifySuccess("Items were loaded.");
+            notifySuccess("Данные получены.");
         }).catch(function (e) {
-            notifyError("Unable to get items.", e);
+            notifyError("Невозможно получить данные.", e);
         });
 
         this.$http.get("/api/act/ClientApi/GetClients").then(function (args) {
@@ -30,7 +30,8 @@ var RequestEditCtrl = (function () {
 
     RequestEditCtrl.prototype.save = function () {
         var _this = this;
-        this.$http.post("/api/RequestApi", this.$scope.request).catch(function (e) {
+        this.$http.post("/api/RequestApi", this.$scope.request)
+        .catch(function (e) {
             notifyError("Error saving model.", e);
         }).finally(function () {
             _this.$location.path("");

@@ -15,14 +15,16 @@ var ServiceCtrl = (function () {
         this.$scope.items = [];
         this.$scope.requests = [];
         this.$scope.query = [];
+        this.$scope.StatusInc = false;
+        this.$scope.DateInc = false;
 
         this.$http.get(_this.apiCfg.RequestUrl).then(function (args) {
             _this.$scope.items = args.data.List;
             _this.$scope.requests = args.data.List;
 
-            notifySuccess("Items were loaded.");
+            notifySuccess("Данные получены.");
         }).catch(function (e) {
-            notifyError("Unable to get items.", e);
+            notifyError("Невозможно получить данные.", e);
         }).finally(function () {
 
         });
@@ -69,10 +71,33 @@ var ServiceCtrl = (function () {
             _this.$scope.requests = _this.$scope.items.filter(function (r) {
                 return _this.$scope.query.indexOf(r.Status) > -1;
             });
+            notifySuccess("Status change completed.");
         }).catch(function (e) {
             notifyError("Error saving model.", e);
         });
     };
+
+    ServiceCtrl.prototype.sortByStatus = function() {
+        if (this.$scope.StatusInc) {
+            
+            this.$scope.StatusInc = false;
+        }
+        else {
+
+            this.$scope.StatusInc = true;
+        }
+    }
+
+    ServiceCtrl.prototype.sortByData = function () {
+        if (this.$scope.DateInc) {
+
+            this.$scope.DateInc = false;
+        }
+        else {
+
+            this.$scope.DateInc = true;
+        }
+    }
 
     ServiceCtrl.prototype.date2IsoStr = function (date) {
         return date2IsoStr(date);

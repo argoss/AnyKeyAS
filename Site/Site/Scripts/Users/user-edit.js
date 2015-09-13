@@ -16,9 +16,9 @@ var UserEditCtrl = (function () {
 
         this.$http.get("/api/act/UserApi/GetUser", { params: { id: _this.$scope.id } }).then(function (args) {
             _this.$scope.user = args.data;
-            notifySuccess("Item were loaded.");
+            notifySuccess("Данные получены.");
         }).catch(function (e) {
-            notifyError("Unable to get item.", e);
+            notifyError("Невозможно получить данные.", e);
         }).finally(function () {
 
         });
@@ -32,6 +32,7 @@ var UserEditCtrl = (function () {
         var _this = this;
         this.$http.post("/api/act/UserApi/Edit", this.$scope.user).then(function () {
             _this.$location.path("");
+            notifySuccess("Item saved successfully.");
         }).catch(function (e) {
             notifyError("Error saving model.", e);
         });

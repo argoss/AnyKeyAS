@@ -40,6 +40,8 @@ namespace Site
             new ScriptBundle("~/scriptbundles/bootstrap").
                 Include("~/Scripts/bootstrap.js").
                 Include("~/Scripts/bootstrap-datepicker.js").
+                Include("~/Scripts/jquery.validate.js").
+                Include("~/Scripts/bootstrap-notify.js").
                 AddTo(BundleTable.Bundles);
 
             new ScriptBundle("~/scriptbundles/jquery").

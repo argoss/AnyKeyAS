@@ -15,9 +15,9 @@ var RequestListCtrl = (function () {
 
         this.$http.get(this.urlList).then(function (args) {
             _this.$scope.items = args.data.List;
-            notifySuccess("Items were loaded.");
+            notifySuccess("Данные получены.");
         }).catch(function (e) {
-            notifyError("Unable to get items.", e);
+            notifyError("Невозможно получить данные.", e);
         }).finally(function () {
             
         });
@@ -44,7 +44,7 @@ var RequestListCtrl = (function () {
             this.$http.delete("/api/RequestApi", { params: { id: _this.$scope.currentItem.Id } }).then(function () {
                 var removedIndex = _this.$scope.items.indexOf(_this.$scope.currentItem);
                 _this.$scope.items.splice(removedIndex, 1);
-                alert("Items were deleted.");
+                notifySuccess("Items were deleted.");
             }).catch(function (e) {
                 notifyError("Unable to delete item.", e);
             }).finally(function () {

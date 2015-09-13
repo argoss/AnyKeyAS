@@ -14,9 +14,9 @@ var ClientEditCtrl = (function () {
 
         this.$http.get("/api/act/ClientApi/GetClient", { params: { id: _this.$scope.id } }).then(function (args) {
             _this.$scope.client = args.data;
-            notifySuccess("Item were loaded.");
+            notifySuccess("Данные получены.");
         }).catch(function (e) {
-            notifyError("Unable to get item.", e);
+            notifyError("Невозможно получить данные.", e);
         }).finally(function () {
             
         });
@@ -26,8 +26,9 @@ var ClientEditCtrl = (function () {
         var _this = this;
         this.$http.post("/api/ClientApi", _this.$scope.client).then(function () {
             _this.$location.path("");
+            notifySuccess("Данные сохранены.");
         }).catch(function (e) {
-            notifyError("Error saving model.", e);
+            notifyError("Ошибка сохранения данных.", e);
         });
     };
 
